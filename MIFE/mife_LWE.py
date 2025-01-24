@@ -5,6 +5,7 @@ import random
 from secrets import randbelow
 from Crypto.Util.number import getPrime
 from typing import List
+from mife.common import inner_product
 
 from numpy import array as Matrix
 
@@ -242,8 +243,10 @@ class FeLWEMulti:
     @staticmethod
     def decrypt(c: list[_FeLWEMulti_C], pp: _FeLWEMulti_PP, sk: _FeLWEMulti_SK) -> int:
 
-        u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)])
-        u -= sk.z*pp.B
+        u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
+        print('u = ',u)
+        u = (u - sk.z*pp.B) % pp.q
+        print('u = ',u)
         factor = pp.B
         minimum = factor
 
@@ -268,5 +271,5 @@ class FeLWEMulti:
             raise Exception("Private key not found in master key")
         y = [Matrix(y[i], dtype=object) for i in range(key.pp.n)]
         Zy = [y[i] @ key.msk[i].Z for i in range(key.pp.n)]
-        z = sum([y[i].dot(key.msk[i].u) for i in range(key.pp.n)])
+        z = (sum([inner_product(y[i],key.msk[i].u) for i in range(key.pp.n)])) % key.pp.q
         return _FeLWEMulti_SK(y, Zy, z)
