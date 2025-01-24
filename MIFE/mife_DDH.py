@@ -73,7 +73,7 @@ class _FeDamgardMulti_MSKi:
         }
 
 class _FeDamgardMulti_EncK:
-    def __init__(self, g: GroupElem, F: GroupBase, mpk: _FeDamgardMulti_MPKi, u: Matrix):
+    def __init__(self, pp: _FeDamgardMulti_PP, mpk: _FeDamgardMulti_MPKi, u: Matrix):
         """
         Initialize FeDamgardMulti encryption key
 
@@ -82,15 +82,13 @@ class _FeDamgardMulti_EncK:
         :param mpk: Master public key
         :param u: Some row of the original u matrix
         """
-        self.g = g
-        self.F = F
+        self.pp = pp
         self.mpk = mpk
         self.u = u
 
     def export(self):
         return {
-            "g": self.g.export(),
-            "F": self.F.export(),
+            "pp": self.pp.export(),
             "mpk": self.mpk.export(),
             "u": self.u.export()
         }
@@ -123,7 +121,7 @@ class _FeDamgardMulti_MK:
             raise Exception("The master key has no private key")
         if not (0 <= index < self.pp.n):
             raise Exception(f"Index must be within [0,{self.n})")
-        return _FeDamgardMulti_EncK(self.pp.g, self.pp.F, self.mpk[index], self.msk[index].u)
+        return _FeDamgardMulti_EncK(self.pp, self.mpk[index], self.msk[index].u)
 
     def has_private_key(self) -> bool:
         return self.msk[0] is not None
@@ -223,11 +221,11 @@ class FeDamgardMulti:
         :return: FeDamgardMulti cipher text
         """
         x = Matrix(x)
-        r = randbelow(key.F.order())
+        r = randbelow(key.pp.F.order())
 
         t = r * key.mpk.a
 
-        c = (x + key.u).apply_func(lambda x: x * key.g) + (r * key.mpk.wa).T
+        c = (x + key.u).apply_func(lambda x: x * key.pp.g) + (r * key.mpk.wa).T
 
         return _FeDamgardMulti_C(t, c)
 
