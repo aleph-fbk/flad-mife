@@ -5,8 +5,10 @@ import random
 from secrets import randbelow
 from Crypto.Util.number import getPrime
 from typing import List
+from mife.common import inner_product
 
 from numpy import array as Matrix
+from numpy import matmul, dot
 
 # References:
 # https://eprint.iacr.org/2017/972.pdf
@@ -236,26 +238,17 @@ class FeLWEMulti:
 
         c0 = ((key.mpk.A @ s) + e0) % pp.q
         c1 = ((key.mpk.U @ s) + e1 + (pp.B * ((x + key.u) % pp.q))) % pp.q
-
+        
         return _FeLWEMulti_C(c0, c1)
 
     @staticmethod
     def decrypt(c: list[_FeLWEMulti_C], pp: _FeLWEMulti_PP, sk: _FeLWEMulti_SK) -> int:
 
-        u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)])
-        u -= sk.z*pp.B
-        factor = pp.B
-        minimum = factor
+        u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
+        u = (u - sk.z*pp.B) % pp.q
 
-        answer = 0
-        # t1 = u // factor
-        # for i in range(t1 - 10, t1 + 10):
-        for i in range(-pp.K + 1, pp.K - 1):
-            u1 = i * factor - u
-            if abs(u1) < minimum:
-                minimum = abs(u1)
-                answer = i
-
+        t = round(u / pp.B)
+        answer = (t - (-pp.K + 1) + 1)
         if answer > pp.K//2:
             return answer - pp.K
         return answer
@@ -268,5 +261,5 @@ class FeLWEMulti:
             raise Exception("Private key not found in master key")
         y = [Matrix(y[i], dtype=object) for i in range(key.pp.n)]
         Zy = [y[i] @ key.msk[i].Z for i in range(key.pp.n)]
-        z = sum([y[i].dot(key.msk[i].u) for i in range(key.pp.n)])
+        z = (sum([inner_product(y[i],key.msk[i].u) for i in range(key.pp.n)])) % key.pp.q
         return _FeLWEMulti_SK(y, Zy, z)
