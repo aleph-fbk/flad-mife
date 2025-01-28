@@ -101,9 +101,10 @@ def FCModel(model_name, input_shape, units, classes=1,dropout=None):
     print(model.summary())
     return model
 
-def init_server(model_type, dataset_name, input_shape, max_flow_len):
+def init_server(model_type, dataset_name, input_shape, max_flow_len, mife_decryption_key):
     server = {}
     server['name'] = "Server"
+    server['sky'] = mife_decryption_key
     features = input_shape[1]
 
     if model_type == 'cnn':
@@ -125,9 +126,10 @@ def init_server(model_type, dataset_name, input_shape, max_flow_len):
     return server
     
 
-def init_client(subfolder, X_train, Y_train, X_val, Y_val, dataset_name, time_window, max_flow_len):
+def init_client(subfolder, X_train, Y_train, X_val, Y_val, dataset_name, time_window, max_flow_len, mife_enryption_key):
     client = {}
     client['name'] = subfolder.strip('/').split('/')[-1] #name of the client based on the folder name
+    client['pk'] = mife_enryption_key
     client['folder'] = subfolder
     X_train_tensor = tf.convert_to_tensor(X_train, dtype=tf.float32)
     client['training'] = (X_train_tensor,Y_train)

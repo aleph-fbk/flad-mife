@@ -17,6 +17,10 @@
 import sys
 from flad_training import *
 import argparse
+from MIFE.mife_LWE import FeLWEMulti
+
+
+X_BIT = 30 #upper bound on the inf norm of the model weights bit length
 
 def main(argv):
     help_string = 'Basic usage: python flad_main.py -c Dataset/DOS2019_highly_unbalanced -t flad'
@@ -79,16 +83,21 @@ def main(argv):
         subfolders = glob.glob(args.clients + "/*/")
         subfolders.sort()
 
+        # mife initialisation
+
+        num_clients = len(subfolders)
+        key = FeLWEMulti.generate(num_clients,1,X_BIT,1)
+
         # clients initialisation
         clients = []
-        for subfolder in subfolders:
+        for index, subfolder in enumerate(subfolders):
             try:
                 X_train, Y_train, time_window, max_flow_len, dataset_name = load_set(subfolder, "train",SEED)
                 X_val, Y_val, time_window, max_flow_len, dataset_name = load_set(subfolder, "val",SEED)
             except:
                 continue
 
-            client = init_client(subfolder, X_train, Y_train, X_val, Y_val, dataset_name, time_window, max_flow_len)
+            client = init_client(subfolder, X_train, Y_train, X_val, Y_val, dataset_name, time_window, max_flow_len, key.get_enc_key(index))
             clients.append(client)
 
         if len(clients) == 0:
@@ -99,10 +108,12 @@ def main(argv):
         if check_clients(clients) == False:
             exit(-1)
 
+        sky = FeLWEMulti.keygen([[1] for _ in range(num_clients)],key)
+
         # full FL training
         FederatedTrain(clients, args.model, output_folder, time_window, max_flow_len, dataset_name,
                         epochs=epochs, steps=steps, training_mode='flad', weighted=False,
-                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS)
+                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_decryption_key=sky)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

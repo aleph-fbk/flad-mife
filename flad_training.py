@@ -47,10 +47,10 @@ def trainClientModel(model, epochs, X_train, Y_train,X_val, Y_val, steps_per_epo
     return model, loss_train, loss_val, tp1-tp0
 
 # Federated training procedure
-def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, dataset_name, epochs='auto', steps='auto', training_mode = 'flad', weighted=False,optimizer='SGD',nr_experiments=EXPERIMENTS):
+def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, dataset_name,  mife_decryption_key, epochs='auto', steps='auto', training_mode = 'flad', weighted=False,optimizer='SGD',nr_experiments=EXPERIMENTS):
 
     round_fieldnames = ['Model', 'Round', 'AvgF1']
-    tuning_fieldnames = ['Model', 'Epochs', 'Steps', 'Mode', 'Weighted', 'Experiment', 'ClientsOrder','Round', 'TotalClientRounds', 'F1','F1_std','Time(sec)']
+    tuning_fieldnames = ['Model', 'Epochs', 'Steps', 'Mode', 'Weighted', 'Experiment', 'ClientsOrder','Round', 'TotalClientRounds', 'F1','Time(sec)']
     for client in clients:
         round_fieldnames.append(client['name'] + '(f1)')
         round_fieldnames.append(client['name']+ '(loss)')
@@ -64,7 +64,7 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
     hyperparamters_tuning_file.flush()
 
     # we start all the experiments with the same server, which means same initial model and random weights
-    server = init_server(model_type, dataset_name, clients[0]['input_shape'], max_flow_len)
+    server = init_server(model_type, dataset_name, clients[0]['input_shape'], max_flow_len, mife_decryption_key)
     if server == None:
         exit(-1)
     model_name = server['model'].name
@@ -103,27 +103,30 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
             compileModel(client['model'], optimizer,'binary_crossentropy')
 
             # If the client is selected, perform the local training
-            if client['update'] == True:
-                client['model'], client['loss_train'], client['loss_val'], client['round_time'] = trainClientModel(
-                    client['model'], 
-                    client['epochs'],
-                    client['training'][0],
-                    client['training'][1],
-                    client['validation'][0],
-                    client['validation'][1],
-                    steps_per_epoch=client['steps_per_epoch'])
-                client['rounds'] +=1
-                if client['round_time'] > training_time:
-                    training_time = client['round_time']
+            #TODO: tutti i client devono partecipare, nel caso ottimo ricifreranno il modello dello
+            # step precedente (nuova randomness)
+            #if client['update'] == True:
+            client['model'], client['loss_train'], client['loss_val'], client['round_time'] = trainClientModel(
+                client['model'], 
+                client['epochs'],
+                client['training'][0],
+                client['training'][1],
+                client['validation'][0],
+                client['validation'][1],
+                steps_per_epoch=client['steps_per_epoch'])
+            client['rounds'] +=1
+            if client['round_time'] > training_time:
+                training_time = client['round_time']
 
-
+        #TODO: inserire qui la cifratura dei pesi lato client e la decifratura lato server
         server['model'] = aggregation_weighted_sum(server, client_subset, weighted)
             
         print("\n################ Round: " + '{:05d}'.format(total_rounds) + " ################")
-        f1_val, f1_std_val = select_clients(server['model'], client_subset, training_mode=training_mode)
+        #TODO: modificare: non è più il server a selezionare i client
+        f1_val = select_clients(server['model'], client_subset, training_mode=training_mode)
         print("==============================================")
         print('Average F1 Score: ', str(f1_val))
-        print('Std_dev F1 Score: ', str(f1_std_val))
+        #print('Std_dev F1 Score: ', str(f1_std_val))
 
         # f1 score on the validation set. We put "*" when the f1 reaches or overcome the max_f1
         row = {'Model': model_name if f1_val < max_f1 else "*"+model_name, 'Round': int(total_rounds),
@@ -151,12 +154,12 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
         for client in clients:
             total_client_rounds += client['rounds']
 
-        f1_val, f1_std_val = assess_best_model(best_model, client_subset,update_clients=True,print_f1=False)
+        #TODO: ancora una volta, questo l'abbiamo già ottenuto tramite MIFE
+        f1_val = assess_best_model(best_model, client_subset,update_clients=True,print_f1=False)
         row = {'Model': model_name, 'Epochs': epochs, 'Steps': steps,
                 'Mode': training_mode, 'Weighted': weighted, 'Experiment': 0,
                 'ClientsOrder': ' '.join(str(c) for c in client_indeces), 'Round': int(total_rounds),
-                'TotalClientRounds': int(total_client_rounds), 'F1': '{:06.5f}'.format(f1_val),
-                'F1_std': '{:06.5f}'.format(f1_std_val), 'Time(sec)': '{:06.2f}'.format(training_time)}
+                'TotalClientRounds': int(total_client_rounds), 'F1': '{:06.5f}'.format(f1_val), 'Time(sec)': '{:06.2f}'.format(training_time)}
         for client in clients:
             row[client['name'] + '(f1)'] = '{:06.5f}'.format(client['f1_val_best'])
             row[client['name'] + '(rounds)'] = int(client['rounds'])
@@ -184,7 +187,9 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
 # in a real scenario, the server would send back the aggregated model to the clients, which evaluate it on their local validation data
 # as a final step, the clients would send the resulting f1 score to the server for analysis (such as the weighted avaerage below)
 def select_clients(server_model, clients, training_mode):
-    average_f1, std_dev_f1 = assess_server_model(server_model, clients,update_clients=True, print_f1=True)
+
+    #TODO: questo valore è l'ultimo ingresso dell'output della MIFE
+    average_f1 = assess_server_model(server_model, clients,update_clients=True, print_f1=True)
 
     # selection of clients to train in the next round for fedavg and flddos
     random_clients_list = random.sample(clients,int(len(clients)*CLIENT_FRACTION))
@@ -197,9 +202,11 @@ def select_clients(server_model, clients, training_mode):
         else:
             client['update'] = False
         
-    return average_f1, std_dev_f1
+    return average_f1
 
 # check the global model on the clients' validation sets
+#TODO: questa funzione non ha senso nel nostro setting: i clienti devono cifrare
+#anche il loro score e mandarlo con il modello, decifrando in MIFE, il server otterrà anche f1_score
 def assess_server_model(server_model, clients,update_clients=False, print_f1=False):
     f1_val_list = []
     for client in clients:
@@ -218,12 +225,12 @@ def assess_server_model(server_model, clients,update_clients=False, print_f1=Fal
 
     if len(clients) > 0:
         average_f1 = np.average(f1_val_list)
-        std_dev_f1 = np.std(f1_val_list)
+        #std_dev_f1 = np.std(f1_val_list)
     else:
         average_f1 = 0
-        std_dev_f1 = 0
+        #std_dev_f1 = 0
 
-    return average_f1, std_dev_f1
+    return average_f1
 
 # check the BEST global model on the clients' validation sets
 def assess_best_model(server_model, clients,update_clients=False, print_f1=False):
@@ -244,17 +251,18 @@ def assess_best_model(server_model, clients,update_clients=False, print_f1=False
 
     if len(clients) > 0:
         average_f1 = np.average(f1_val_list)
-        std_dev_f1 = np.std(f1_val_list)
+        #std_dev_f1 = np.std(f1_val_list)
     else:
         average_f1 = 0
-        std_dev_f1 = 0
+        #std_dev_f1 = 0
 
-    return average_f1, std_dev_f1
+    return average_f1
 
 # We dynamically assign the number of training steps/epochs (called 'parameter') to each client for the next training round
 # The result is based on the f1 score on the local validation set obtained by each client and communicated to
 # the server along with the model update
 def update_client_training_parameters(clients, parameter, value, max_value, min_value):
+
     f1_list = []
     update_clients = []
 
@@ -311,6 +319,9 @@ def aggregation_weighted_sum(server, clients,weighted=True):
             avg_weight = 1
         total += avg_weight
         client_model = client['model']
+
+        #TODO: qui avviene l'aggregazione dei modelli, capire in che punto possiamo
+        #simboleggiare la comunicazione, in ogni caso andrà fatta con MIFE
         client_weights = client_model.get_weights()
         for weight_index in range(weights_list_size):
             aggregated_weights_list[weight_index] += client_weights[weight_index] * avg_weight
