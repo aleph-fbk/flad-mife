@@ -42,7 +42,22 @@ class _FeLWEMulti_PP:
         self.B = B
 
     def export(self):
-        pass
+        return {
+            "X_bit" : self.X_bit,
+            "Y_bit" : self.Y_bit,
+            "K" : self.K,
+            "N" : self.N,
+            "M" : self.M,
+            "n" : self.n,
+            "m" : self.m,
+            "B" : self.B,
+            "q_bit" : math.log2(self.q),
+            "alpha" : self.alpha,
+        }
+
+    def __str__(self):
+       return f"X_bit = {self.X_bit},\nY_bit = {self.Y_bit},\nK = {self.K},\nN = {self.N},\nM = {self.M},\nn = {self.n},\nm = {self.m},\nB = {self.B},\nq_bit = {math.log2(self.q)},\nalpha = {self.alpha}\n" 
+        
 
 
 class _FeLWEMulti_MPKi:
@@ -212,6 +227,7 @@ class FeLWEMulti:
         sigma1 = math.sqrt(N * M.bit_length()) * max(math.sqrt(M), K)
         sigma2 = math.sqrt((N ** 7) * M * (M.bit_length() ** 5)) * max(M, K * K)
 
+        #print(pp)
         for _ in range(n):
             u = Matrix([randbelow(q) for _ in range(m)])
 

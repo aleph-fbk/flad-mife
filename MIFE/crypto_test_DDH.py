@@ -38,7 +38,7 @@ cicle_time = time.time()
 for i in range(n_weights):
     cs = [FeDamgardMulti.encrypt(x[i], key.get_enc_key(i)) for i in range(n)]
     
-    #m = FeDamgardMulti.decrypt(cs, key.pp, sk, (0, 20000))
+    m = FeDamgardMulti.decrypt(cs, key.pp, sk, (0, 20000))
 
 cicle_time = time.time() - cicle_time
 end = time.time()
