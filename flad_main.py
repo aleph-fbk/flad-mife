@@ -17,10 +17,9 @@
 import sys
 from flad_training import *
 import argparse
-from MIFE.mife_LWE import FeLWEMulti
 
-
-X_BIT = 30 #upper bound on the inf norm of the model weights bit length
+X_BIT = 70 #upper bound on the inf norm of the model weights bit length
+NUM_DECIMAL = 6
 
 def main(argv):
     help_string = 'Basic usage: python flad_main.py -c Dataset/DOS2019_highly_unbalanced -t flad'
@@ -41,6 +40,9 @@ def main(argv):
     parser.add_argument('-o', '--output_folder', nargs='?', type=str, default=None,
                         help='Folder which stores the training/testing results (default: ./log ')
     
+    parser.add_argument('-p', '--protocol', type=str, default="LWE", choices=['LWE', 'DDH'],
+                        help='Change the security assumption for the cyrptographic protocol MIFE')
+    
     parser.add_argument('-s', '--steps_per_epoch', nargs='?', type=int, default=None,
                         help='Steps of gradient descent taken at each epoch (default: None, which means adaptive)')
 
@@ -59,6 +61,16 @@ def main(argv):
     np.random.seed(SEED)
     rn.seed(SEED)
     
+
+    #FIXME: si può davvero fare questa cosa?
+    match args.protocol:
+        case 'LWE':
+            from MIFE.mife_LWE import FeLWEMulti as mife_class
+        case 'DDH':
+            from MIFE.mife_DDH import FeDamgardMulti as mife_class
+
+    mife = mife_class()
+
     if args.output_folder == None:
         if os.path.isdir("./log") == False:
             os.mkdir("./log")
@@ -86,7 +98,7 @@ def main(argv):
         # mife initialisation
 
         num_clients = len(subfolders)
-        key = FeLWEMulti.generate(num_clients,1,X_BIT,1)
+        key = mife.generate(num_clients,1,X_BIT,1,40)
 
         # clients initialisation
         clients = []
@@ -108,12 +120,14 @@ def main(argv):
         if check_clients(clients) == False:
             exit(-1)
 
-        sky = FeLWEMulti.keygen([[1] for _ in range(num_clients)],key)
+        mife_element_for_server = {}
+        mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key)
+        mife_element_for_server['pp'] = key.pp 
 
         # full FL training
         FederatedTrain(clients, args.model, output_folder, time_window, max_flow_len, dataset_name,
                         epochs=epochs, steps=steps, training_mode='flad', weighted=False,
-                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_decryption_key=sky)
+                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_elements_for_server=mife_element_for_server, mife = mife)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

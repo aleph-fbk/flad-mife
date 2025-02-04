@@ -242,7 +242,8 @@ class FeLWEMulti:
         return _FeLWEMulti_MK(pp, mpk, msk)
 
     @staticmethod
-    def encrypt(pp: _FeLWEMulti_PP, x: List[int], key: _FeLWEMulti_EncK) -> _FeLWEMulti_C:
+    def encrypt(x: List[int], key: _FeLWEMulti_EncK) -> _FeLWEMulti_C:
+        pp = key.pp
         if len(x) != pp.m:
             raise Exception("Encrypt vector must be of length l")
 
@@ -260,6 +261,10 @@ class FeLWEMulti:
     @staticmethod
     def decrypt(c: list[_FeLWEMulti_C], pp: _FeLWEMulti_PP, sk: _FeLWEMulti_SK) -> int:
 
+        print('sizes')
+        print([len(sk.y[i]) for i in range(pp.n)])
+        print([len(c[i].c1) for i in range(pp.n)])
+        print(sk.y[0],c[0].c1)
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
         u = (u - sk.z*pp.B) % pp.q
 

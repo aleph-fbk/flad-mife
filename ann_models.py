@@ -40,6 +40,8 @@ MAX_EPOCHS = 5
 MIN_STEPS = 10
 MAX_STEPS = 1000
 
+DIGITS = 4 
+
 def compileModel(model, optimizer_type="SGD",loss='binary_crossentropy'):
     if optimizer_type == "Adam":
         optimizer = Adam(learning_rate=0.01, beta_1=0.9, beta_2=0.999, epsilon=None, amsgrad=False)
@@ -97,14 +99,15 @@ def FCModel(model_name, input_shape, units, classes=1,dropout=None):
     if dropout != None and type(dropout) == float:
         model.add(Dropout(dropout))
     model.add(Dense(classes, activation='sigmoid', name='fc3'))
-
+    
     print(model.summary())
     return model
 
-def init_server(model_type, dataset_name, input_shape, max_flow_len, mife_decryption_key):
+def init_server(model_type, dataset_name, input_shape, max_flow_len, mife_elements_for_server):
     server = {}
     server['name'] = "Server"
-    server['sky'] = mife_decryption_key
+    server['sky'] = mife_elements_for_server['sky']
+    server['pp'] = mife_elements_for_server['pp']
     features = input_shape[1]
 
     if model_type == 'cnn':
