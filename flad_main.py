@@ -99,7 +99,13 @@ def main(argv):
         # mife initialisation
 
         num_clients = len(subfolders)
-        key = mife.generate(num_clients,1,X_BIT,1,N=N)
+
+        match args.protocol:
+            case 'LWE':
+                key = mife.generate(num_clients,1,X_BIT,1,N=N)
+            case 'DDH':
+                key = mife.generate(num_clients,1,X_BIT)
+        
 
         # clients initialisation
         clients = []

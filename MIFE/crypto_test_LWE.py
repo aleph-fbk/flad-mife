@@ -11,7 +11,7 @@ from io import StringIO
 X_BIT = 11
 N = 16
 n_weights = 1
-n = 3
+n = 30
 m = 1
 n_tests = 5000
 
@@ -33,8 +33,7 @@ sk = my_mife_obj.keygen(y, key)
 
 
 print('generated sk')
-print('K =', key.pp.K)
-print('B =', key.pp.B)
+print(key.pp)
 encrypt_with_key = partial(my_mife_obj.encrypt, key=key.get_enc_key(0))
 
 encrypted_model_set=[]

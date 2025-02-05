@@ -11,7 +11,7 @@ from mife.data.zmod import Zmod
 
 
 class _FeDamgardMulti_PP:
-    def __init__(self, g: GroupElem, n: int, m: int, F: GroupBase):
+    def __init__(self, g: GroupElem, n: int, m: int, F: GroupBase, X_bit: int):
         """
         Initialize FeDamgardMulti oublic parameters
         
@@ -24,7 +24,10 @@ class _FeDamgardMulti_PP:
         self.n = n
         self.m = m
         self.F = F
-        self.to_group = lambda x: x * self.g
+        self.B = 1<<X_bit
+
+    def to_group(self, x: int) -> GroupElem:
+        return x * self.g
 
     def export(self):
         return {
@@ -181,7 +184,7 @@ class _FeDamgardMulti_C:
 
 class FeDamgardMulti:
     @staticmethod
-    def generate(n: int, m: int, F: GroupBase = None) -> _FeDamgardMulti_MK:
+    def generate(n: int, m: int, X_bit:int, F: GroupBase = None) -> _FeDamgardMulti_MK:
         """
         Generate a FeDamgardMulti master key
 
@@ -195,7 +198,7 @@ class FeDamgardMulti:
         g = F.generator()
         to_group = lambda x: x * g
 
-        pp = _FeDamgardMulti_PP(g, n, m, F)
+        pp = _FeDamgardMulti_PP(g, n, m, F, X_bit)
 
         mpk = []
         msk = []
@@ -230,8 +233,7 @@ class FeDamgardMulti:
         return _FeDamgardMulti_C(t, c)
 
     @staticmethod
-    def decrypt(c: List[_FeDamgardMulti_C], pp: _FeDamgardMulti_PP, sk: _FeDamgardMulti_SK,
-                bound: Tuple[int, int]) -> int:
+    def decrypt(c: List[_FeDamgardMulti_C], pp: _FeDamgardMulti_PP, sk: _FeDamgardMulti_SK) -> int:
         """
         Decrypt a message vector
 
@@ -241,6 +243,7 @@ class FeDamgardMulti:
         :param bound: Bound for the discrete log problem
         :return: Decrypted message vector
         """
+        bound = [-pp.B,pp.B]
         cul = pp.F.identity()
         for i in range(pp.n):
             # [y_i dot c_i]
@@ -255,7 +258,7 @@ class FeDamgardMulti:
         return discrete_log_bound(cul, pp.g, bound)
 
     @staticmethod
-    def keygen(y: List[List[int]], pp: _FeDamgardMulti_PP, msk: list[_FeDamgardMulti_MSKi]) -> _FeDamgardMulti_SK:
+    def keygen(y: List[List[int]], key: _FeDamgardMulti_MK) -> _FeDamgardMulti_SK:
         """
         Generate a FeDamgardMulti decryption key
 
@@ -264,15 +267,15 @@ class FeDamgardMulti:
         :param msk: FeDamgardMulti master secret key
         :return: FeDamgardMulti decryption key
         """
-        if len(y) != pp.n:
-            raise Exception(f"Function vector must be a {pp.n} x {pp.m} matrix")
+        if len(y) != key.pp.n:
+            raise Exception(f"Function vector must be a {key.pp.n} x {key.pp.m} matrix")
         d = []
         z = 0
-        for i in range(pp.n):
-            if len(y[i]) != pp.m:
-                raise Exception(f"Function vector must be a {pp.n} x {pp.m} matrix")
+        for i in range(key.pp.n):
+            if len(y[i]) != key.pp.m:
+                raise Exception(f"Function vector must be a {key.pp.n} x {key.pp.m} matrix")
             y_i = Matrix(y[i])
-            d.append(y_i * msk.get_private_key(i).w)
-            z += y_i.dot(msk.get_private_key(i).u)
+            d.append(y_i * key.msk[i].w)
+            z += y_i.dot(key.msk[i].u)
 
         return _FeDamgardMulti_SK(y, d, z)
