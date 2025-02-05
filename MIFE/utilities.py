@@ -6,14 +6,17 @@ def encode(x: float, sig: int, X_bit: int) -> int: #prende in input un float e u
 #possibilità di vettorializzazione.
     enc = int(x*10**sig)
     if enc.bit_length() > X_bit:
-        raise Exception(f"vector {x} is too large for {X_bit} bits")
+        raise Exception(f"{x} is too large for {X_bit} bits")
     return enc
 
-def decode(enc: int, sig: int) -> float: #prende in input un float e un numero di cifre significative (sig).
+def decode(enc: int, sig: int) -> float: #prende in input un int e un numero di cifre significative (sig).
     return enc / 10**sig #restituisce il float decodificato.
 
-def encode_vector(x: list[float], sig: int, X_bit: int) -> list[int]: #prende in input una lista di float e un numero di cifre significative (sig).
+def encode_vector(x, sig: int, X_bit: int): #prende in input una lista di float e un numero di cifre significative (sig).
     return [[encode(v, sig, X_bit)] for v in x] #restituisce una lista di liste di interi
+
+def decode_vector(x, sig: int): #prende in input una lista di int e un numero di cifre significative (sig).
+    return [decode(v, sig) for v in x] #restituisce una lista di liste di float
 
 
 def flatten_keras_weights(model):
@@ -28,7 +31,7 @@ def flatten_keras_weights(model):
 def set_flat_weights(model, flat_weights):
     # Initialize position index for slicing
     pos = 0
-
+    flat_weights = np.array(flat_weights)
     # Get the shapes of the original weights
     original_shapes = [w.shape for w in model.get_weights()]
     

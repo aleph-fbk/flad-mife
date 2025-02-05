@@ -18,8 +18,9 @@ import sys
 from flad_training import *
 import argparse
 
-X_BIT = 70 #upper bound on the inf norm of the model weights bit length
-NUM_DECIMAL = 6
+X_BIT = 11 #upper bound on the inf norm of the model weights bit length
+N = 16
+NUM_DECIMAL = 2
 
 def main(argv):
     help_string = 'Basic usage: python flad_main.py -c Dataset/DOS2019_highly_unbalanced -t flad'
@@ -98,7 +99,7 @@ def main(argv):
         # mife initialisation
 
         num_clients = len(subfolders)
-        key = mife.generate(num_clients,1,X_BIT,1,40)
+        key = mife.generate(num_clients,1,X_BIT,1,N=N)
 
         # clients initialisation
         clients = []
@@ -123,6 +124,7 @@ def main(argv):
         mife_element_for_server = {}
         mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key)
         mife_element_for_server['pp'] = key.pp 
+        print(key.pp)
 
         # full FL training
         FederatedTrain(clients, args.model, output_folder, time_window, max_flow_len, dataset_name,

@@ -40,7 +40,6 @@ MAX_EPOCHS = 5
 MIN_STEPS = 10
 MAX_STEPS = 1000
 
-DIGITS = 4 
 
 def compileModel(model, optimizer_type="SGD",loss='binary_crossentropy'):
     if optimizer_type == "Adam":

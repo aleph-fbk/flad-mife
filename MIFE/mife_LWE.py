@@ -261,15 +261,13 @@ class FeLWEMulti:
     @staticmethod
     def decrypt(c: list[_FeLWEMulti_C], pp: _FeLWEMulti_PP, sk: _FeLWEMulti_SK) -> int:
 
-        print('sizes')
-        print([len(sk.y[i]) for i in range(pp.n)])
-        print([len(c[i].c1) for i in range(pp.n)])
-        print(sk.y[0],c[0].c1)
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
         u = (u - sk.z*pp.B) % pp.q
 
         t = round(u / pp.B)
         answer = (t - (-pp.K + 1) + 1)
+        if answer > pp.K//2:
+            answer -= pp.K
         if answer > pp.K//2:
             return answer - pp.K
         return answer
