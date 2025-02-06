@@ -228,7 +228,7 @@ class FeDamgardMulti:
 
         t = r * key.mpk.a
 
-        c = (x + key.u).apply_func(lambda x: x * key.pp.g) + (r * key.mpk.wa).T
+        c = (x + key.u).apply_func(key.pp.to_group) + (r * key.mpk.wa).T
 
         return _FeDamgardMulti_C(t, c)
 
@@ -243,7 +243,7 @@ class FeDamgardMulti:
         :param bound: Bound for the discrete log problem
         :return: Decrypted message vector
         """
-        bound = [-pp.B,pp.B]
+        bound = [-pp.B*pp.n,pp.B*pp.n]
         cul = pp.F.identity()
         for i in range(pp.n):
             # [y_i dot c_i]
