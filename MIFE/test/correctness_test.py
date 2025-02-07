@@ -3,6 +3,8 @@ from random import randrange
 import time
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 X_BIT = 11
 N = 16

@@ -3,12 +3,14 @@ from random import randrange
 import time
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 X_BIT = 11
-N = 16
+N = 128
 n = 4
 m = 1
-n_weights = 5000
+n_weights = 1
 
 def main():
     parser = argparse.ArgumentParser(description='Choose a protocol to test.')
