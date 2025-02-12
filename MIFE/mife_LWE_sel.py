@@ -28,7 +28,7 @@ class _FeLWEMulti_PP:
         :param p: Bound for final decryption
         :param q: Group size
         :param sigma: parameter in (0,1)
-        :param B: [q/p]
+        :param B: q/p
         """
         self.X_bit = X_bit
         self.Y_bit = Y_bit

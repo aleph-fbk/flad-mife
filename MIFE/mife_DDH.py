@@ -36,6 +36,9 @@ class _FeDamgardMulti_PP:
             "m": self.m,
             "F": self.F.export(),
         }
+    def __str__(self):
+        return f"n = {self.n},\nm = {self.m},\nx_bit = {(self.B).bit_length()},\nq = {self.F.order().bit_length()}\n" 
+
 
 
 class _FeDamgardMulti_MPKi:
@@ -95,6 +98,7 @@ class _FeDamgardMulti_EncK:
             "mpk": self.mpk.export(),
             "u": self.u.export()
         }
+
 
 
 
@@ -184,7 +188,7 @@ class _FeDamgardMulti_C:
 
 class FeDamgardMulti:
     @staticmethod
-    def generate(n: int, m: int, X_bit:int, F: GroupBase = None) -> _FeDamgardMulti_MK:
+    def generate(n: int, m: int, X_bit:int, q_bit: int, F: GroupBase = None) -> _FeDamgardMulti_MK:
         """
         Generate a FeDamgardMulti master key
 
@@ -194,7 +198,7 @@ class FeDamgardMulti:
         :return: FeDamgardMulti master key
         """
         if F is None:
-            F = Zmod(getStrongPrime(1024))
+            F = Zmod(getStrongPrime(q_bit))
         g = F.generator()
         to_group = lambda x: x * g
 

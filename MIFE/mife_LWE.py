@@ -205,19 +205,27 @@ class FeLWEMulti:
         :param F: Group to use for the scheme. If set to None, a random 1024 bit prime group will be used
         :return: FeDamgardMulti master key
         """
+
         K = (3*n*m) << (X_bit + Y_bit)
+        i = 1
+        bit_q = i
+        while True:
+            bound_m = (N*i)
+            sigma1 = math.sqrt(N * bound_m.bit_length()) * max(math.sqrt(bound_m), K)
+            sigma2 = math.sqrt((N ** 7) * bound_m * (bound_m.bit_length() ** 5)) * max(bound_m, K * K)
+            alpha = 1 / (K**2 * (sigma1**2 + sigma2**2)* N.bit_length())
+            alpha_first = alpha / (K*N**6 * bit_q**2 * math.sqrt(N.bit_length())**5)
+            q = math.floor(math.sqrt(N.bit_length())/ alpha_first)
+            bit_q = q.bit_length() + 1
+            if (bit_q < i ):
+                break
+            i = i + 1
 
-        if N is None:
-            N = max(m, 64)
 
-        q = getPrime(K.bit_length() * 2 + N.bit_length() * 15 + 10)
-        alpha = 1 / (K * K * (N * q.bit_length()) ** 7)
-
-        if q < math.sqrt(N) / alpha:
-            raise Exception("q too small")
-
+        q = getPrime(bit_q)
         M = N * q.bit_length()
-        B = (q // K)
+
+        B = q // K
 
         pp = _FeLWEMulti_PP(M, N, X_bit, Y_bit, K, n, m ,q, B, alpha)
 
