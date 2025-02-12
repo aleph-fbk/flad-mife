@@ -78,19 +78,20 @@ class _FeLWEMulti_MPKi:
 
 class _FeLWEMulti_MSKi:
 
-    def __init__(self, Z: Matrix):
+    def __init__(self, Z: Matrix, u: Matrix):
         """
         Initialize FeDamgardMulti master secret key
 
         :param w: [[random_element, random_element] for _ in range(m)]]
         """
         self.Z = Z
+        self.u = u
 
     def export(self):
         pass
 
 class _FeLWEMulti_EncK:
-    def __init__(self, pp: _FeLWEMulti_PP, mpk: _FeLWEMulti_MPKi):
+    def __init__(self, pp: _FeLWEMulti_PP, mpk: _FeLWEMulti_MPKi, u: Matrix):
         """
         Initialize FeDamgardMulti encryption key
 
@@ -100,6 +101,7 @@ class _FeLWEMulti_EncK:
         """
         self.pp = pp
         self.mpk = mpk
+        self.u = u
 
     def export(self):
         pass
@@ -132,7 +134,7 @@ class _FeLWEMulti_MK:
             raise Exception("The master key has no private key")
         if not (0 <= index < self.pp.n):
             raise Exception(f"Index must be within [0,{self.n})")
-        return _FeLWEMulti_EncK(self.pp, self.mpk[index])
+        return _FeLWEMulti_EncK(self.pp, self.mpk[index], self.msk[index].u)
 
     def has_private_key(self) -> bool:
         return self.msk[0] is not None
@@ -152,15 +154,17 @@ class _FeLWEMulti_MK:
 
 
 class _FeLWEMulti_SK:
-    def __init__(self, y: List[Matrix], Zy: List[Matrix]):
+    def __init__(self, y: List[Matrix], Zy: List[Matrix], z: int):
         """
         Initialize FeDamgardMulti decryption key
 
         :param y: Function vector
         :param d: [y[i] * w for i in range(n)]
+        :param z: <u, y>
         """
         self.y = y
         self.Zy = Zy
+        self.z = z
 
     def export(self):
         pass
@@ -235,6 +239,7 @@ class FeLWEMulti:
         sys_random = random.SystemRandom()
         
         for _ in range(n):
+            u = Matrix([randbelow(q) for _ in range(m)])
 
             A = Matrix([[randbelow(q) for _ in range(N)] for _ in range(M)], dtype=object)
             Z = Matrix([[randbelow(q) for _ in range(M)] for _ in range(m)], dtype=object)
@@ -243,7 +248,7 @@ class FeLWEMulti:
 
             U = (Z @ A + E) % q
 
-            msk.append(_FeLWEMulti_MSKi(Z))
+            msk.append(_FeLWEMulti_MSKi(Z,u))
             mpk.append(_FeLWEMulti_MPKi(U,A))    
 
         return _FeLWEMulti_MK(pp, mpk, msk)
@@ -262,7 +267,7 @@ class FeLWEMulti:
 
         c0 = ((key.mpk.A @ s)) % pp.q
 
-        ptx = pp.B * x
+        ptx = pp.B * (x + key.u)  % pp.q
         ptx = Matrix([round(elem) for elem in ptx]) # rounding
 
         c1 = (key.mpk.U @ s) +  ptx % pp.q
@@ -273,7 +278,7 @@ class FeLWEMulti:
     def decrypt(c: list[_FeLWEMulti_C], pp: _FeLWEMulti_PP, sk: _FeLWEMulti_SK) -> int:
 
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
-        # u = (u - sk.z*pp.B) % pp.q
+        u = (u - sk.z*pp.B) % pp.q
 
         t = round(u / pp.B)
         answer = (t - (-pp.p + 1) + 1)
@@ -292,5 +297,5 @@ class FeLWEMulti:
             raise Exception("Private key not found in master key")
         y = [Matrix(y[i], dtype=object) for i in range(key.pp.n)]
         Zy = [y[i] @ key.msk[i].Z for i in range(key.pp.n)]
-        # z = (sum([inner_product(y[i],key.msk[i].u) for i in range(key.pp.n)])) % key.pp.q
-        return _FeLWEMulti_SK(y, Zy)
+        z = (sum([inner_product(y[i],key.msk[i].u) for i in range(key.pp.n)]))
+        return _FeLWEMulti_SK(y, Zy, z)
