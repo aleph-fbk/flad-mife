@@ -7,11 +7,11 @@ import os, sys
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-X_BIT = 11
+X_BIT = 15
 N = 64
 n = 4
 m = 1
-n_weights = 50
+n_weights = 100
 Q_BIT = 2048 # bit per DDH
 bound = 1<<X_BIT
 
@@ -68,8 +68,8 @@ def main():
     if ptx == result:
         print("Correctness test passed.")   
     else:    
-        print(f"Correctness test failed,\n ptx = {ptx} \n result = {result}")
-        print(abs(np.array(ptx) - np.array(result)))
+        print(f"Correctness test failed")
+        print('errors:\n',abs(np.array(ptx) - np.array(result)))
 
 
 if __name__ == "__main__":

@@ -206,7 +206,8 @@ class FeLWEMulti:
 
         # K = (3*n*m) << (X_bit + Y_bit)
 
-        p = getPrime(n.bit_length()+m.bit_length()+2*X_bit+Y_bit+3)
+       # p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
+        p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
 
         if N is None:
             N = max(m, 64)
@@ -215,7 +216,7 @@ class FeLWEMulti:
         # alpha = 1 / (K * K * (N * q.bit_length()) ** 7)
         M = (N + m + 1) * q.bit_length() + 2 * N + 1
 
-        sigma = 1 / (2 * math.sqrt(M * N * 2 * m) * p * (1<<Y_bit))
+        sigma = 1 / (2 * math.sqrt(M * N * 2 * m) * p * (1<<(Y_bit)))
 
         val = math.sqrt(m) * (1<<X_bit) + 1
 
@@ -245,6 +246,7 @@ class FeLWEMulti:
             Z = Matrix([[randbelow(q) for _ in range(M)] for _ in range(m)], dtype=object)
             
             E = Matrix([[round(sys_random.gauss(0, sigma)) for _ in range(N)] for _ in range(m)], dtype=object)# Matrix([[randbelow(q) for _ in range(N)] for _ in range(m)], dtype=object)
+            # E = Matrix([[0 for _ in range(N)] for _ in range(m)], dtype=object)
 
             U = (Z @ A + E) % q
 
@@ -280,13 +282,13 @@ class FeLWEMulti:
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
         u = (u - sk.z*pp.B) % pp.q
 
-        t = round(u / pp.B)
+        t = (u / pp.B)
         answer = (t - (-pp.p + 1) + 1)
         if answer > pp.p//2:
             answer -= pp.p
         if answer > pp.p//2:
-            return answer - pp.p
-        return answer
+            return round(answer - pp.p)
+        return round(answer)
 
 
     @staticmethod
