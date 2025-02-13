@@ -11,18 +11,23 @@ X_BIT = 11
 N = 64
 n = 4
 m = 1
-n_weights = 5000
+n_weights = 50
 Q_BIT = 2048 # bit per DDH
 bound = 1<<X_BIT
 
 def main():
     parser = argparse.ArgumentParser(description='Choose a protocol to test.')
-    parser.add_argument('--protocol', choices=['DDH', 'LWE', 'LWE_sel'], required=True, help='The protocol to test (DDH or LWE)')
+    parser.add_argument('--protocol', choices=['DDH', 'DDH_sel', 'LWE', 'LWE_sel'], required=True, help='The protocol to test (DDH or LWE)')
     args = parser.parse_args()
 
     if args.protocol == 'DDH':
         print("testing DDH")
         from mife_DDH import FeDamgardMulti
+        mife = FeDamgardMulti()
+        mk = mife.generate(n, m, X_BIT, Q_BIT)
+    elif args.protocol == 'DDH_sel':
+        print("testing DDH_sel")
+        from mife_DDH_sel import FeDamgardMulti
         mife = FeDamgardMulti()
         mk = mife.generate(n, m, X_BIT, Q_BIT)
     elif args.protocol == 'LWE':
@@ -43,7 +48,7 @@ def main():
     x = [[[randrange(-bound,bound) for _ in range(m)] for _ in range(n_weights)] for _ in range(n)]
     # x = [[[1 for _ in range(m)] for _ in range(n_weights)] for _ in range(n)]
 
-    result = [sum([x[i][j][0] for i in range(n)]) for j in range(n_weights)]
+    result = [sum([sum([x[i][j][h] for h in range(m)]) for i in range(n)]) for j in range(n_weights)]
 
     sk = mife.keygen([[1 for _ in range(m)] for _ in range(n)], mk)
 

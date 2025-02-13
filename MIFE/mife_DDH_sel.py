@@ -36,52 +36,49 @@ class _FeDamgardMulti_PP:
             "m": self.m,
             "F": self.F.export(),
         }
-    def __str__(self):
-        return f"n = {self.n},\nm = {self.m},\nx_bit = {(self.B).bit_length()},\nq = {self.F.order().bit_length()}\n" 
 
+def __str__(self):
+        return f"n = {self.n},\nm = {self.m},\nx_bit = {(self.B).bit_length()},\nq = {self.F.order().bit_length()}\n" 
 
 
 class _FeDamgardMulti_MPKi:
 
-    def __init__(self, a: Matrix, wa: Matrix):
+    def __init__(self, h: Matrix,):
         """
-        Initialize FeDamgardMulti master public key
-
-        :param a: [1, random_element]
-        :param wa: W * a
+        Initialize FeDamgardMulti master public key of the single client 
+        h is a 1xm matrix
         """
-        self.a = a
-        self.wa = wa
+        self.h = h
 
     def export(self):
         return {
-            "a": self.a.export(),
-            "wa": self.wa.export()
+            "h": self.h.export(),
+           
         }
 
 
 class _FeDamgardMulti_MSKi:
 
-    def __init__(self, w: Matrix, u: Matrix):
+    def __init__(self, s: Matrix, u: Matrix):
         """
-        Initialize FeDamgardMulti master secret key
+        Initialize FeDamgardMulti master secret key of the single client
 
-        :param w: [[random_element, random_element] for _ in range(m)]]
-        :param u: [random_element for _ in range(m)]
+        :param s: it is a 1xm matrix
+        :param u: it is a 1xm matrix
         """
-        self.w = w
+        self.s = s
         self.u = u
 
     def export(self):
         return {
-            "w": self.w.export(),
+            "s": self.w.export(),
             "u": self.u.export()
         }
 
 class _FeDamgardMulti_EncK:
-    def __init__(self, pp: _FeDamgardMulti_PP, mpk: _FeDamgardMulti_MPKi, u: Matrix):
+    def __init__(self, pp: _FeDamgardMulti_PP, mpk: _FeDamgardMulti_MPKi, u: int):
         """
-        Initialize FeDamgardMulti encryption key
+        Initialize FeDamgardMulti encryption key of the single client
 
         :param g: Generator of the group
         :param F: Group to use for the scheme
@@ -98,7 +95,6 @@ class _FeDamgardMulti_EncK:
             "mpk": self.mpk.export(),
             "u": self.u.export()
         }
-
 
 
 
@@ -148,7 +144,7 @@ class _FeDamgardMulti_MK:
 
 
 class _FeDamgardMulti_SK:
-    def __init__(self, y: List[List[int]], d: List[Matrix], z: int):
+    def __init__(self,y: List[List[int]], sy: List[List[int]], z: List[int]):
         """
         Initialize FeDamgardMulti decryption key
 
@@ -157,26 +153,25 @@ class _FeDamgardMulti_SK:
         :param z: <u, y>
         """
         self.y = y
-        self.d = d
+        self.sy = sy
         self.z = z
 
     def export(self):
         return {
-            "y": [[int(i) for i in vec] for vec in self.y],
-            "d": [x.export() for x in self.d],
+            "sy": [[int(i) for i in vec] for vec in self.y],
             "z": self.z
         }
 
 
 class _FeDamgardMulti_C:
-    def __init__(self, t: Matrix, c: Matrix):
+    def __init__(self, c0: GroupElem, c: list[GroupElem]):
         """
         Initialize FeDamgardMulti cipher text
 
-        :param t:  r * a
-        :param c: [(x[i] + u[i]) * g] + r * wa
+        :param c0:  g^r
+        :param c: h^r g^x
         """
-        self.t = t
+        self.c0 = c0
         self.c = c
 
     def export(self):
@@ -208,13 +203,12 @@ class FeDamgardMulti:
         msk = []
 
         for _ in range(n):
-            a_v = Matrix([1, randbelow(F.order())])
-            W = Matrix([[randbelow(F.order()), randbelow(F.order())] for _ in range(m)])
+            s = Matrix([ randbelow(F.order()) for _ in range(m)])
             u = Matrix([randbelow(F.order()) for _ in range(m)])
 
             
-            msk.append(_FeDamgardMulti_MSKi(W, u))
-            mpk.append(_FeDamgardMulti_MPKi(a_v.apply_func(to_group), (W * a_v.T).apply_func(to_group)))
+            msk.append(_FeDamgardMulti_MSKi(s, u))
+            mpk.append(_FeDamgardMulti_MPKi((s).apply_func(to_group)))
 
         return _FeDamgardMulti_MK(pp, mpk, msk)
 
@@ -230,11 +224,10 @@ class FeDamgardMulti:
         x = Matrix(x)
         r = randbelow(key.pp.F.order())
 
-        t = r * key.mpk.a
+        c0 = key.pp.to_group(r)
 
-        c = (x + key.u).apply_func(key.pp.to_group) + (r * key.mpk.wa).T
-
-        return _FeDamgardMulti_C(t, c)
+        c = (x + key.u).apply_func(key.pp.to_group) +  r * key.mpk.h
+        return _FeDamgardMulti_C(c0, list(c))
 
     @staticmethod
     def decrypt(c: List[_FeDamgardMulti_C], pp: _FeDamgardMulti_PP, sk: _FeDamgardMulti_SK) -> int:
@@ -250,36 +243,36 @@ class FeDamgardMulti:
         bound = [-pp.B*pp.n,pp.B*pp.n]
         cul = pp.F.identity()
         for i in range(pp.n):
-            # [y_i dot c_i]
-            yc = inner_product(sk.y[i], c[i].c[0], identity=pp.F.identity())
-
-            # [d_i dot t_i]
-            dt = inner_product(sk.d[i][0], c[i].t[0], identity=pp.F.identity())
-
+            # [ct^yi]
+            yc = inner_product(sk.y[i], c[i].c[:][0], identity=pp.F.identity())
+            dt = sk.sy[i] * c[i].c0
+            # co^sky
             cul = cul + yc - dt
-
+            
         cul = cul - pp.to_group(sk.z)
         return discrete_log_bound(cul, pp.g, bound)
-
+    
     @staticmethod
     def keygen(y: List[List[int]], key: _FeDamgardMulti_MK) -> _FeDamgardMulti_SK:
         """
         Generate a FeDamgardMulti decryption key
 
         :param y: Function vector (n x m matrix)
-        :param pp: FeDamgardMulti public parameters
-        :param msk: FeDamgardMulti master secret key
+        :param key: FeDamgardMulti master key
         :return: FeDamgardMulti decryption key
         """
         if len(y) != key.pp.n:
             raise Exception(f"Function vector must be a {key.pp.n} x {key.pp.m} matrix")
-        d = []
-        z = 0
+        
+        d = []  
+        z = 0  
+
         for i in range(key.pp.n):
             if len(y[i]) != key.pp.m:
                 raise Exception(f"Function vector must be a {key.pp.n} x {key.pp.m} matrix")
-            y_i = Matrix(y[i])
-            d.append(y_i * key.msk[i].w)
-            z += y_i.dot(key.msk[i].u)
+            
+            y_i = Matrix(y[i])  
+            d.append(y_i.dot(key.msk[i].s))  # Compute <y, msk.s[i]> for each i
+            z += y_i.dot(key.msk[i].u)  
 
         return _FeDamgardMulti_SK(y, d, z)
