@@ -22,12 +22,13 @@ import math
 import csv
 from sklearn.metrics import f1_score
 import random
-import copy
 import gc
-from concurrent.futures import ProcessPoolExecutor
 from functools import partial
+from multiprocessing import Manager, Process
 import shutil
 
+
+MAX_WORKERS = 31 # number of parallel workers
 
 # General hyperparameters
 EXPERIMENTS = 10
@@ -123,20 +124,17 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
                 client['rounds'] +=1
                 if client['round_time'] > training_time:
                     training_time = client['round_time']
-            
-            weights = flatten_keras_weights(client['model'])
-            encoded_weights = encode_vector(weights,X_bit=X_BIT,sig=NUM_DECIMAL)
 
-            encrypt_with_key = partial(mife.encrypt, key=client['pk'])
-
-            t0 = time.time()
-            with ProcessPoolExecutor() as executor:
-                encrypted_model_set.append(list(executor.map(encrypt_with_key, encoded_weights)))
+            t0 = time.time()    
+            encrypted_model_set.append(encrypt_model(client['model'], mife, client['pk'], mife_elements_for_server['protocol'], parall_flag=True))
             t1 = time.time()    
-            print(f'encryption time: {t1-t0}')
-        
 
+            print('encryption time: %.2f s' % (t1-t0))  
+
+        t0 = time.time()
         server['model'] = aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, weighted)
+        t1 = time.time()
+        print('aggregation time: %.2f s' % (t1-t0))  
             
         print("\n################ Round: " + '{:05d}'.format(total_rounds) + " ################")
 
@@ -221,6 +219,57 @@ def select_clients(server, clients, mife, training_mode):
         
     return average_f1
 
+def encrypt_model(model, mife, key, protocol, parall_flag = True):
+
+    def worker(shared_dict, f, chunk_size):
+        for i in range(chunk_size):
+            shared_dict[i] = f(shared_dict[i])
+
+    max_workers = MAX_WORKERS
+
+    weights = flatten_keras_weights(model)
+    n_weights = len(weights)
+    encoded_weights = encode_vector(weights,X_bit=X_BIT,sig=NUM_DECIMAL)
+    
+    encrypt_with_key = partial(mife.encrypt, key=key)
+    
+    if parall_flag == False:
+        dict_par = {}
+
+        for j in range(chunk_size):
+            dict_par[j] = encrypt_with_key(encoded_weights[i*chunk_size+j])
+
+        dicts.append(dict_par)
+        return dicts
+    else:
+        chunk_size = n_weights//max_workers 
+        final_pos = (n_weights//max_workers)*max_workers
+        residual_size = n_weights%max_workers
+
+        dicts = {i:Manager().dict()  for i in range(max_workers+1)}
+
+        for i in range(max_workers):
+            for j in range(chunk_size):
+                dicts[i][j] = encoded_weights[i*chunk_size+j]
+        
+        for i in range(residual_size):
+            dicts[max_workers][i] = encoded_weights[i+final_pos]
+
+        processes = []
+        for i in range(max_workers):
+            p = Process(target=worker, args=(dicts[i], encrypt_with_key, chunk_size))
+            p.start()
+            processes.append(p)
+
+        p = Process(target=worker, args=(dicts[max_workers], encrypt_with_key, residual_size))
+        p.start()
+        processes.append(p)
+
+        for p in processes:
+            p.join()    
+
+        return dicts
+        
 
 def assess_encrypted_server_model(server, parameter, clients, mife, update_clients=False, print_f1=False):
     f1_val_list = []
@@ -399,15 +448,35 @@ def aggregation_weighted_sum(server, clients,weighted=True):
 
 def aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, weighted=False):
     
+    def worker(shared_dict, f, chunk_size):
+        num_dicts = len(shared_dict)
+        for i in range(chunk_size):
+            shared_dict[0][i] = f([shared_dict[j][i] for j in range(num_dicts)])
+
     aggregated_model = clone_model(server['model'])
     number_of_clients = len(encrypted_model_set)
-    number_of_weight = len(encrypted_model_set[0])
-    
-    t0 = time.time()    
-    aggregated_weights_list = [mife.decrypt(pp=server['pp'], c=[encrypted_model_set[i][j] for i in range(number_of_clients)], sk=server['sky']) for j in range(number_of_weight)]
-    t1 = time.time()    
+    number_of_weight = 0
+    aggregated_weights_list = []
 
-    print(f'decryption time: {t1-t0}')  
+    decrypt = partial(mife.decrypt, pp=server['pp'], sk=server['sky'])
+
+    processes = []
+    for dict_pos in range(MAX_WORKERS + 1):
+        dict_size = len(encrypted_model_set[0][dict_pos])
+        number_of_weight += dict_size
+
+        p = Process(target=worker, args=([encrypted_model_set[cl][dict_pos] for cl in range(number_of_clients)], decrypt, dict_size))
+        p.start()
+        processes.append(p)
+        # aggregated_weights_list.extend([mife.decrypt(pp=server['pp'], c=[encrypted_model_set[i][dict_pos][j] for i in range(number_of_clients)], sk=server['sky']) for j in range(dict_size)])
+    
+    for p in processes:
+        p.join()
+
+
+    for dict_pos in range(MAX_WORKERS + 1):
+        dict_size = len(encrypted_model_set[0][dict_pos])
+        aggregated_weights_list.extend([encrypted_model_set[0][dict_pos][j] for j in range(dict_size)])
     
     aggregated_weights_list = decode_vector(aggregated_weights_list,NUM_DECIMAL)
     
