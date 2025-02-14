@@ -207,7 +207,7 @@ class FeLWEMulti:
         # K = (3*n*m) << (X_bit + Y_bit)
 
        # p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
-        p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+20)
+        p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
 
         if N is None:
             N = max(m, 64)
@@ -273,8 +273,8 @@ class FeLWEMulti:
 
         c0 = ((key.mpk.A.T @ r)) % pp.q
 
-        ptx = pp.B * ((x + key.u))  
-        ptx = Matrix([round(elem) %  pp.q for elem in ptx]) # rounding
+        ptx = pp.B * ((x + key.u %pp.p))  
+        ptx = Matrix([round(elem)  for elem in ptx]) # rounding
 
         #ptx = Matrix([math.floor(elem) %  pp.q for elem in ptx]) # rounding
 
@@ -326,5 +326,5 @@ class FeLWEMulti:
             raise Exception("Private key not found in master key")
         y = [Matrix(y[i], dtype=object) for i in range(key.pp.n)]
         Zy = [(key.msk[i].s @ y[i]) % key.pp.q for i in range(key.pp.n)] 
-        z = (sum([((y[i].T @ (key.msk[i].u )) )  for i in range(key.pp.n)]))
+        z = (sum([((y[i].T @ (key.msk[i].u )))  for i in range(key.pp.n)])) % key.pp.q
         return _FeLWEMulti_SK(y, Zy, z)
