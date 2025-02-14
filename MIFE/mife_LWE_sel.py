@@ -78,13 +78,13 @@ class _FeLWEMulti_MPKi:
 
 class _FeLWEMulti_MSKi:
 
-    def __init__(self, Z: Matrix, u: Matrix):
+    def __init__(self, s: Matrix, u: Matrix):
         """
         Initialize FeDamgardMulti master secret key
 
         :param w: [[random_element, random_element] for _ in range(m)]]
         """
-        self.Z = Z
+        self.s = s
         self.u = u
 
     def export(self):
@@ -207,16 +207,17 @@ class FeLWEMulti:
         # K = (3*n*m) << (X_bit + Y_bit)
 
        # p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
-        p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
+        p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2+20)
 
         if N is None:
             N = max(m, 64)
 
-        q = getPrime(p.bit_length() + N.bit_length() * 2 + X_bit + round(m.bit_length()/2))
+        q = getPrime(p.bit_length() + 10)
         # alpha = 1 / (K * K * (N * q.bit_length()) ** 7)
         M = (N + m + 1) * q.bit_length() + 2 * N + 1
 
         sigma = 1 / (2 * math.sqrt(M * N * 2 * m) * p * (1<<(Y_bit)))
+        
 
         val = math.sqrt(m) * (1<<X_bit) + 1
 
@@ -225,7 +226,8 @@ class FeLWEMulti:
         if val <= 2 * math.sqrt(N):
             raise Exception("q too small")
 
-        B = (q / p)
+        B = q/p
+        print(B)
 
         pp = _FeLWEMulti_PP(M, N, X_bit, Y_bit, p, n, m ,q, B, sigma)
 
@@ -243,14 +245,14 @@ class FeLWEMulti:
             u = Matrix([randbelow(q) for _ in range(m)])
 
             A = Matrix([[randbelow(q) for _ in range(N)] for _ in range(M)], dtype=object)
-            Z = Matrix([[randbelow(q) for _ in range(M)] for _ in range(m)], dtype=object)
+            s = Matrix([[randbelow(q) for _ in range(m)] for _ in range(N)], dtype=object)
             
-            E = Matrix([[round(sys_random.gauss(0, sigma)) for _ in range(N)] for _ in range(m)], dtype=object)# Matrix([[randbelow(q) for _ in range(N)] for _ in range(m)], dtype=object)
-            # E = Matrix([[0 for _ in range(N)] for _ in range(m)], dtype=object)
+            #E = Matrix([[round(sys_random.gauss(0, sigma)) for _ in range(m)] for _ in range(M)], dtype=object)# Matrix([[randbelow(q) for _ in range(N)] for _ in range(m)], dtype=object)
+            E = Matrix([[0 for _ in range(m)] for _ in range(M)], dtype=object)
 
-            U = (Z @ A + E) % q
+            U = (A@s + E) % q
 
-            msk.append(_FeLWEMulti_MSKi(Z,u))
+            msk.append(_FeLWEMulti_MSKi(s,u))
             mpk.append(_FeLWEMulti_MPKi(U,A))    
 
         return _FeLWEMulti_MK(pp, mpk, msk)
@@ -263,16 +265,16 @@ class FeLWEMulti:
 
         # sys_random = random.SystemRandom()
         x = Matrix(x, dtype=object)
-        s = Matrix([randbelow(pp.q) for _ in range(pp.N)], dtype=object)
+        r = Matrix([randbelow(2) for _ in range(pp.M)], dtype=object)
         # e0 = Matrix([round(sys_random.gauss(0, pp.alpha * pp.q)) for _ in range(pp.M)], dtype=object)
         # e1 = Matrix([round(sys_random.gauss(0, pp.alpha * pp.q)) for _ in range(pp.m)], dtype=object)
 
-        c0 = ((key.mpk.A @ s)) % pp.q
+        c0 = ((key.mpk.A.T @ r)) % pp.q
 
-        ptx = pp.B * (x + key.u)  % pp.q
-        ptx = Matrix([round(elem) for elem in ptx]) # rounding
+        ptx = pp.B * (x + key.u)  
+        ptx = Matrix([math.floor(elem) %  pp.q for elem in ptx]) # rounding
 
-        c1 = (key.mpk.U @ s) +  ptx % pp.q
+        c1 = (key.mpk.U.T @ r) +  ptx % pp.q
         
         return _FeLWEMulti_C(c0, c1)
 
@@ -282,6 +284,7 @@ class FeLWEMulti:
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
         u = (u - sk.z*pp.B) % pp.q
 
+        '''
         t = (u / pp.B)
         answer = (t - (-pp.p + 1) + 1)
         if answer > pp.p//2:
@@ -289,7 +292,16 @@ class FeLWEMulti:
         if answer > pp.p//2:
             return round(answer - pp.p)
         return round(answer)
+        '''
 
+        q_half = math.floor(pp.q/2)
+        d= u
+        if d > q_half:
+            d= d- pp.q
+        d = d * pp.p
+        d = d + q_half
+        d = math.floor(d / pp.q)
+        return d
 
     @staticmethod
     def keygen(y: List[List[int]], key: _FeLWEMulti_MK) -> _FeLWEMulti_SK:
@@ -298,6 +310,6 @@ class FeLWEMulti:
         if not key.has_private_key():
             raise Exception("Private key not found in master key")
         y = [Matrix(y[i], dtype=object) for i in range(key.pp.n)]
-        Zy = [y[i] @ key.msk[i].Z for i in range(key.pp.n)]
-        z = (sum([inner_product(y[i],key.msk[i].u) for i in range(key.pp.n)]))
+        Zy = [key.msk[i].s @ y[i] for i in range(key.pp.n)] 
+        z = (sum([inner_product(y[i],key.msk[i].u) for i in range(key.pp.n)])) 
         return _FeLWEMulti_SK(y, Zy, z)
