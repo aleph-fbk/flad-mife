@@ -54,8 +54,8 @@ def trainClientModel(model, epochs, X_train, Y_train,X_val, Y_val, steps_per_epo
     return model, loss_train, loss_val, tp1-tp0
 
 # Federated training procedure
-def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, dataset_name, mife_elements_for_server, mife, epochs='auto', steps='auto', training_mode = 'flad', weighted=False,optimizer='SGD',nr_experiments=EXPERIMENTS):
-
+def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, dataset_name, mife_elements_for_server, epochs='auto', steps='auto', training_mode = 'flad', weighted=False,optimizer='SGD',nr_experiments=EXPERIMENTS):
+    
     round_fieldnames = ['Model', 'Round', 'AvgF1']
     tuning_fieldnames = ['Model', 'Epochs', 'Steps', 'Mode', 'Weighted', 'Experiment', 'ClientsOrder','Round', 'TotalClientRounds', 'F1','Time(sec)']
     for client in clients:
@@ -95,6 +95,10 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
     f1_val = 1
     stop = False
 
+    # assign mife obj
+
+    mife_obj = mife_elements_for_server['mife']
+
     while True:  # training epochs
         total_rounds += 1
 
@@ -126,19 +130,24 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
                     training_time = client['round_time']
 
             t0 = time.time()    
-            encrypted_model_set.append(encrypt_model(client['model'], mife, client['pk'], mife_elements_for_server['protocol'], parall_flag=True))
+            encrypted_model_set.append(encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True))
             t1 = time.time()    
 
-            print('encryption time: %.2f s' % (t1-t0))  
+            print('encryption time: %.2f s\n' % (t1-t0))  
 
+        print("==============================================")
+        print("Aggregating models...")
         t0 = time.time()
-        server['model'] = aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, weighted)
+        server['model'] = aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife_obj, weighted)
         t1 = time.time()
         print('aggregation time: %.2f s' % (t1-t0))  
+        print("==============================================")
+        
+        
             
         print("\n################ Round: " + '{:05d}'.format(total_rounds) + " ################")
 
-        f1_val = select_clients(server, client_subset, mife, training_mode=training_mode)
+        f1_val = select_clients(server, client_subset, mife_obj, training_mode=training_mode)
         print("==============================================")
         print('Average F1 Score: ', str(f1_val))
         #print('Std_dev F1 Score: ', str(f1_std_val))
@@ -169,7 +178,7 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
         for client in clients:
             total_client_rounds += client['rounds']
 
-        f1_val = assess_encrypted_server_model(server, 'best_model', client_subset,mife,update_clients=True,print_f1=False)
+        f1_val = assess_encrypted_server_model(server, 'best_model', client_subset,mife_obj,update_clients=True,print_f1=False)
         row = {'Model': model_name, 'Epochs': epochs, 'Steps': steps,
                 'Mode': training_mode, 'Weighted': weighted, 'Experiment': 0,
                 'ClientsOrder': ' '.join(str(c) for c in client_indeces), 'Round': int(total_rounds),
@@ -219,9 +228,9 @@ def select_clients(server, clients, mife, training_mode):
         
     return average_f1
 
-def encrypt_model(model, mife, key, protocol, parall_flag = True):
+def encrypt_model(model, mife, key, parall_flag = True):
 
-    def worker(shared_dict, f, chunk_size):
+    def worker(shared_dict, f, chunk_size): # each worker encrypts a chunk of the weights
         for i in range(chunk_size):
             shared_dict[i] = f(shared_dict[i])
 
@@ -229,7 +238,7 @@ def encrypt_model(model, mife, key, protocol, parall_flag = True):
 
     weights = flatten_keras_weights(model)
     n_weights = len(weights)
-    encoded_weights = encode_vector(weights,X_bit=X_BIT,sig=NUM_DECIMAL)
+    encoded_weights = encode_vector(weights,X_bit=X_BIT,sig=NUM_DECIMAL) # encoding the weights into X_BIT long integers
     
     encrypt_with_key = partial(mife.encrypt, key=key)
     
@@ -246,7 +255,7 @@ def encrypt_model(model, mife, key, protocol, parall_flag = True):
         final_pos = (n_weights//max_workers)*max_workers
         residual_size = n_weights%max_workers
 
-        dicts = {i:Manager().dict()  for i in range(max_workers+1)}
+        dicts = {i:Manager().dict()  for i in range(max_workers+1)} # we generate a dictionary for each worker 
 
         for i in range(max_workers):
             for j in range(chunk_size):
@@ -307,7 +316,6 @@ def assess_server_model(server_model, clients,update_clients=False, print_f1=Fal
         Y_pred = np.squeeze(server_model.predict(X_val, batch_size=2048) > 0.5)
         client_f1 = f1_score(Y_val, Y_pred)
 
-        #TODO: in f1_val_list we want to store the cyphertext of the scores
         f1_val_list.append(client_f1)
         if update_clients == True:
             client['f1_val'] = f1_score(Y_val, Y_pred)

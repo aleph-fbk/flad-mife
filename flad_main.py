@@ -106,7 +106,8 @@ def main(argv):
 
         num_clients = len(subfolders)
 
-        match protocol:
+        match protocol: # we set the parameters for the MIFE scheme depending on the protocol
+                        # and generate the client keys
             case 'LWE':
                 key = mife.generate(n=num_clients,m=1,X_bit=X_BIT,Y_bit=1,N=N)
             case 'LWE_sel':
@@ -138,15 +139,17 @@ def main(argv):
             exit(-1)
 
         mife_element_for_server = {}
-        mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key)
-        mife_element_for_server['pp'] = key.pp 
-        mife_element_for_server['protocol'] = protocol
+        mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key) # server MIFE key
+        mife_element_for_server['pp'] = key.pp # MIFE public parameters
+        mife_element_for_server['mife'] = mife # MIFE class
+        print("MIFE parameters:")
         print(key.pp)
+        print("#" * 15)
 
         # full FL training
         FederatedTrain(clients, args.model, output_folder, time_window, max_flow_len, dataset_name,
                         epochs=epochs, steps=steps, training_mode='flad', weighted=False,
-                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_elements_for_server=mife_element_for_server, mife = mife)
+                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_elements_for_server=mife_element_for_server)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
