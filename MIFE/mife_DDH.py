@@ -37,7 +37,7 @@ class _FeDamgardMulti_PP:
             "F": self.F.export(),
         }
     def __str__(self):
-        return f"n = {self.n},\nm = {self.m},\nx_bit = {(self.B).bit_length()},\nq = {self.F.order().bit_length()}\n" 
+        return f"n = {self.n},\nm = {self.m},\nx_bit = {(self.B).bit_length()},\nq = {self.F.order().bit_length()}" 
 
 
 

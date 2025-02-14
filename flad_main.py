@@ -142,9 +142,10 @@ def main(argv):
         mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key) # server MIFE key
         mife_element_for_server['pp'] = key.pp # MIFE public parameters
         mife_element_for_server['mife'] = mife # MIFE class
+        print('\n\n'+'='*15)
         print("MIFE parameters:")
         print(key.pp)
-        print("#" * 15)
+        print('='*15+'\n\n')
 
         # full FL training
         FederatedTrain(clients, args.model, output_folder, time_window, max_flow_len, dataset_name,

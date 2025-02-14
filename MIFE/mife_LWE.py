@@ -56,7 +56,7 @@ class _FeLWEMulti_PP:
         }
 
     def __str__(self):
-       return f"X_bit = {self.X_bit},\nY_bit = {self.Y_bit},\nK = {self.K},\nN = {self.N},\nM = {self.M},\nn = {self.n},\nm = {self.m},\nB_bit = {math.log2(self.B)},\nq_bit = {math.log2(self.q)},\nalpha = {self.alpha}\n" 
+       return f"X_bit = {self.X_bit},\nY_bit = {self.Y_bit},\nK = {self.K},\nN = {self.N},\nM = {self.M},\nn = {self.n},\nm = {self.m},\nB_bit = {math.log2(self.B)},\nq_bit = {math.log2(self.q)},\nalpha = {self.alpha}" 
         
 
 
