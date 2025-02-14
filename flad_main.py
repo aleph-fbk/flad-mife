@@ -151,5 +151,5 @@ def main(argv):
                         epochs=epochs, steps=steps, training_mode='flad', weighted=False,
                         optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_elements_for_server=mife_element_for_server)
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     main(sys.argv[1:])
