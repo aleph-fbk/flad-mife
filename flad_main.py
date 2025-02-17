@@ -19,7 +19,8 @@ from flad_training import *
 import argparse
 
 X_BIT = 11 #upper bound on the inf norm of the model weights bit length
-N = 16
+N = 64 #security parameter
+Q_BIT = 1024 # bit size of DDH prime
 NUM_DECIMAL = 2
 
 def main(argv):
@@ -41,7 +42,7 @@ def main(argv):
     parser.add_argument('-o', '--output_folder', nargs='?', type=str, default=None,
                         help='Folder which stores the training/testing results (default: ./log ')
     
-    parser.add_argument('-p', '--protocol', type=str, default="LWE", choices=['LWE', 'DDH'],
+    parser.add_argument('-p', '--protocol', type=str, default="LWE_sel", choices=['LWE', 'DDH', 'LWE_sel', 'DDH_sel'],
                         help='Change the security assumption for the cyrptographic protocol MIFE')
     
     parser.add_argument('-s', '--steps_per_epoch', nargs='?', type=int, default=None,
@@ -63,12 +64,17 @@ def main(argv):
     rn.seed(SEED)
     
 
-    #FIXME: si può davvero fare questa cosa?
-    match args.protocol:
+    protocol = args.protocol
+    
+    match protocol:
         case 'LWE':
             from MIFE.mife_LWE import FeLWEMulti as mife_class
+        case 'LWE_sel':
+            from MIFE.mife_LWE_sel import FeLWEMulti as mife_class
         case 'DDH':
             from MIFE.mife_DDH import FeDamgardMulti as mife_class
+        case 'DDH_sel':
+            from MIFE.mife_DDH_sel import FeDamgardMulti as mife_class
 
     mife = mife_class()
 
@@ -100,11 +106,16 @@ def main(argv):
 
         num_clients = len(subfolders)
 
-        match args.protocol:
+        match protocol: # we set the parameters for the MIFE scheme depending on the protocol
+                        # and generate the client keys
             case 'LWE':
-                key = mife.generate(num_clients,1,X_BIT,1,N=N)
+                key = mife.generate(n=num_clients,m=1,X_bit=X_BIT,Y_bit=1,N=N)
+            case 'LWE_sel':
+                key = mife.generate(n=num_clients,m=1,X_bit=X_BIT,Y_bit=1,N=N)
             case 'DDH':
-                key = mife.generate(num_clients,1,X_BIT)
+                key = mife.generate(n=num_clients,m=1,X_bit=X_BIT,q_bit=Q_BIT)
+            case 'DDH_sel':
+                key = mife.generate(n=num_clients,m=1,X_bit=X_BIT,q_bit=Q_BIT)
         
 
         # clients initialisation
@@ -128,14 +139,18 @@ def main(argv):
             exit(-1)
 
         mife_element_for_server = {}
-        mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key)
-        mife_element_for_server['pp'] = key.pp 
+        mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key) # server MIFE key
+        mife_element_for_server['pp'] = key.pp # MIFE public parameters
+        mife_element_for_server['mife'] = mife # MIFE class
+        print('\n\n'+'='*15)
+        print("MIFE parameters:")
         print(key.pp)
+        print('='*15+'\n\n')
 
         # full FL training
         FederatedTrain(clients, args.model, output_folder, time_window, max_flow_len, dataset_name,
                         epochs=epochs, steps=steps, training_mode='flad', weighted=False,
-                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_elements_for_server=mife_element_for_server, mife = mife)
+                        optimizer=args.optimizer, nr_experiments=EXPERIMENTS, mife_elements_for_server=mife_element_for_server)
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     main(sys.argv[1:])
