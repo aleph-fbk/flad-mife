@@ -1,5 +1,5 @@
 import math
-
+import gmpy2
 import random
 
 from secrets import randbelow
@@ -229,7 +229,7 @@ class FeLWEMulti:
         if val <= 2 * math.sqrt(N):
             raise Exception("q too small")
 
-        B = q/p
+        B = gmpy2.mpq(q, p) 
 
         pp = _FeLWEMulti_PP(M, N, X_bit, Y_bit, p, n, m ,q, B, sigma)
 
@@ -288,26 +288,7 @@ class FeLWEMulti:
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
         u = (u - pp.B*sk.z) %pp.q
 
-    
         '''
-        res = abs(u)
-        i= 1
-        while(True):
-            res1 = abs(u - math.floor(pp.B*i))
-            if res1 > res:
-                return res
-            res = res1
-            i = i+ 1
-        '''
-        t = (u / pp.B)
-        answer = (t - (-pp.p + 1) + 1)
-        if answer > pp.p//2:
-            answer -= pp.p
-        if answer > pp.p//2:
-            return round(answer - pp.p)
-        return round(answer)
-        '''
-
         q_half = math.floor(pp.q/2)
         d= u
         if d > q_half:
@@ -316,8 +297,16 @@ class FeLWEMulti:
         d = d + q_half
         d = math.floor(d / pp.q)
         return d
-         '''
+        '''
 
+        t = (u / pp.B)
+        answer = (t - (-pp.p + 1) + 1)
+        if answer > pp.p//2:
+            answer -= pp.p
+        if answer > pp.p//2:
+            return round(answer - pp.p)
+        return round(answer)
+        
     @staticmethod
     def keygen(y: List[List[int]], key: _FeLWEMulti_MK) -> _FeLWEMulti_SK:
         if len(y[0]) != key.pp.m:
