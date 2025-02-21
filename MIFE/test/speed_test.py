@@ -3,8 +3,15 @@ from random import randrange
 import time
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
+
 import os, sys
+
+sys.path.append(os.path.abspath(__file__))
+# sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+from MIFE.utilities import parallel_decrypt_vector, parallel_encrypt_vector
 
 X_BIT = 11
 N = 64
@@ -22,12 +29,17 @@ def wrap(x,f):
 
 def main():
     parser = argparse.ArgumentParser(description='Choose a protocol to test.')
-    parser.add_argument('--protocol', choices=['DDH', 'LWE', 'LWE_sel'], required=True, help='The protocol to test (DDH or LWE)')
+    parser.add_argument('--protocol', choices=['DDH', 'DDH_sel','LWE', 'LWE_sel'], required=True, help='The protocol to test (DDH or LWE)')
     args = parser.parse_args()
 
     if args.protocol == 'DDH':
         print("testing DDH")
         from mife_DDH import FeDamgardMulti
+        mife = FeDamgardMulti()
+        mk = mife.generate(n=n, m=m, X_bit=X_BIT, q_bit=Q_BIT)
+    elif args.protocol == 'DDH_sel':
+        print("testing DDH_sel")
+        from mife_DDH_sel import FeDamgardMulti
         mife = FeDamgardMulti()
         mk = mife.generate(n=n, m=m, X_bit=X_BIT, q_bit=Q_BIT)
     elif args.protocol == 'LWE':
@@ -43,12 +55,11 @@ def main():
     else:
         print("Invalid protocol selected.")
 
+    print('The public parameters of the MIFE scheme are:')
     print(mk.pp)
     print("Generating random plaintexts of size", n_weights)
     x = [[randrange(1<<X_BIT) for j in range(m)] for i in range(n_weights)]
 
-    encrypt_with_key = partial(mife.encrypt, key=mk.get_enc_key(0))
- 
 
     # start = time.time()
     # # cs = [encrypt_with_key(ptx) for ptx in x]
@@ -57,11 +68,9 @@ def main():
     # print(f'generated cs in {time.time()-start}s')
 
     encrypted_model_set = []
-
-    encrypt_wrapped = partial(wrap, f=encrypt_with_key)
     start = time.time()
-    with ProcessPoolExecutor() as executor:
-        encrypted_model_set.append(list(executor.map(encrypt_with_key, x)))
+
+    encrypted_model_set.append(parallel_encrypt_vector(x,30,mife,mk.get_enc_key(0)))
     print(f'generated cs in parallel in {time.time()-start}s')
 
     # start = time.time()
