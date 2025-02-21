@@ -30,7 +30,11 @@ def wrap(x,f):
 def main():
     parser = argparse.ArgumentParser(description='Choose a protocol to test.')
     parser.add_argument('--protocol', choices=['DDH', 'DDH_sel','LWE', 'LWE_sel'], required=True, help='The protocol to test (DDH or LWE)')
+    parser.add_argument('--max_workers', required=True, help='number of workers involved in parallelization')
     args = parser.parse_args()
+
+    max_workers = args.max_workers
+    print("num of workers:", max_workers)
 
     if args.protocol == 'DDH':
         print("testing DDH")
@@ -70,7 +74,7 @@ def main():
     encrypted_model_set = []
     start = time.time()
 
-    encrypted_model_set.append(parallel_encrypt_vector(x,30,mife,mk.get_enc_key(0)))
+    encrypted_model_set.append(parallel_encrypt_vector(v=x,max_workers=max_workers,mife=mife,key=mk.get_enc_key(0)))
     print(f'generated cs in parallel in {time.time()-start}s')
 
     # start = time.time()
