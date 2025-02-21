@@ -20,11 +20,11 @@ m = 1
 n_weights = 5000
 Q_BIT = 2048 # bit per DDH
 
-def wrap(x,f):
-    start = time.time()
-    f(x)
-    end = time.time()
-    print(f"Time taken: {end-start}")
+# def wrap(x,f):
+#     start = time.time()
+#     f(x)
+#     end = time.time()
+#     print(f"Time taken: {end-start}")
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
     parser.add_argument('--max_workers', required=True, help='number of workers involved in parallelization')
     args = parser.parse_args()
 
-    max_workers = args.max_workers
+    max_workers = int(args.max_workers)
     print("num of workers:", max_workers)
 
     if args.protocol == 'DDH':
