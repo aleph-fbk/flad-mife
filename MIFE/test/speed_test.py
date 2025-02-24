@@ -11,7 +11,7 @@ sys.path.append(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from MIFE.utilities import parallel_decrypt_vector, parallel_encrypt_vector
+from MIFE.utilities import parallel_decrypt_vector, parallel_encrypt_vector, parallel_encrypt_vector_compact
 
 X_BIT = 11
 N = 64
@@ -19,6 +19,9 @@ n = 4
 m = 1
 n_weights = 5000
 Q_BIT = 2048 # bit per DDH
+
+num_loop = 10
+
 
 # def wrap(x,f):
 #     start = time.time()
@@ -70,13 +73,23 @@ def main():
     # # cs = list(x.map(encrypt_with_key, x))
     # cs = [encrypt_with_key(ptx) for ptx in x]
     # print(f'generated cs in {time.time()-start}s')
-
     encrypted_model_set = []
-    start = time.time()
 
-    encrypted_model_set.append(parallel_encrypt_vector(v=x,max_workers=max_workers,mife=mife,key=mk.get_enc_key(0)))
-    print(f'generated cs in parallel in {time.time()-start}s')
+    for i in range(num_loop):
+        print('encrypting round', i)
+        start = time.time()
 
+        if max_workers == 1:
+            a = [mife.encrypt(ptx,key=mk.get_enc_key(0)) for ptx in x]
+        else:
+           # a = parallel_encrypt_vector_compact(v=x,max_workers=max_workers,mife=mife,key=mk.get_enc_key(0))
+           a = parallel_encrypt_vector(v=x,max_workers=max_workers,mife=mife,key=mk.get_enc_key(0))
+        end = time.time()
+        print(f'generated cs in parallel in {end-start}s')
+
+
+
+    # print(a[:20])
     # start = time.time()
     # ptx = mife.decrypt(encrypted_model_set, mk.pp, mife.keygen([[1 for _ in range(m)] for _ in range(n)], mk))
     # print(f'decrypted cs in {time.time()-start}s')

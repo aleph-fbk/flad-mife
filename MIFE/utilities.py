@@ -1,6 +1,17 @@
 import numpy as np
 from functools import partial
-from multiprocessing import Process, Manager
+from multiprocessing import Process, Manager, Pool
+
+def split_list(lst, n):
+    chunk_size = len(lst) // n
+    return [lst[i:i + chunk_size] for i in range(0, chunk_size * n, chunk_size)] + [lst[chunk_size * n:]]
+
+def split_list_decrypt(lst,n):
+    n_clients = len(lst)
+    n_weights = len(lst[0])
+    chunk_size =  n_weights// n
+    residual_weights = n_weights%n
+    return [[[lst[i][j+t] for i in range(n_clients)] for t in range(chunk_size)] for j in range(0, chunk_size * n, chunk_size)] + [[[lst[i][chunk_size * n+t] for i in range(n_clients)] for t in range(residual_weights)]]
 
 def encode(x: float, sig: int, X_bit: int) -> int: #prende in input un float e un numero di cifre significative (sig).
     x = float(f"{x:.{sig}f}") #restituisce il float x con sig cifre significative.
@@ -52,6 +63,24 @@ def encrypt_vector(v, mife, key):
     return [mife.encrypt(v[i], key=key) for i in range(len(v))]
 
 
+def process_chunk(chunk, f): # each worker process a chunk of the weights
+        return [f(x) for x in chunk]
+
+def parallel_encrypt_vector_compact(v, max_workers, mife, key):
+  
+    chunks = split_list(v, max_workers)
+
+    encrypt_with_key = partial(mife.encrypt, key=key)
+    process_chunk_with_fun = partial(process_chunk,f=encrypt_with_key)
+    # Crea un pool di lavoratori
+    with Pool(max_workers) as pool:
+        results = pool.map(process_chunk_with_fun, chunks)
+
+    # Unisce i risultati
+    return [item for sublist in results for item in sublist]
+
+
+
 def parallel_encrypt_vector(v, max_workers, mife, key):
     def worker(shared_dict, f, chunk_size): # each worker encrypts a chunk of the weights
         for i in range(chunk_size):
@@ -66,14 +95,25 @@ def parallel_encrypt_vector(v, max_workers, mife, key):
     final_pos = (n_elem//max_workers)*max_workers
     residual_size = n_elem%max_workers
 
-    dicts = {i:Manager().dict()  for i in range(max_workers+1)} # we generate a dictionary for each worker 
+    #dicts = {i:Manager().dict()  for i in range(max_workers+1)} # we generate a dictionary for each worker
+    dicts = {i:Manager().list() for i in range(max_workers+1)}
+    # dicts = {i:{}  for i in range(max_workers+1)}
+
+    # for i in range(max_workers):
+    #     for j in range(chunk_size):
+    #         dicts[i][j] = v[i*chunk_size+j]
+
+    # for i in range(residual_size):
+    #     dicts[max_workers][i] = v[i+final_pos]
 
     for i in range(max_workers):
         for j in range(chunk_size):
-            dicts[i][j] = v[i*chunk_size+j]
-    
+            dicts[i].append(v[i*chunk_size+j])
+
     for i in range(residual_size):
-        dicts[max_workers][i] = v[i+final_pos]
+        dicts[max_workers].append(v[i+final_pos])
+    
+
 
     processes = []
     for i in range(max_workers):
@@ -86,7 +126,8 @@ def parallel_encrypt_vector(v, max_workers, mife, key):
     processes.append(p)
 
     for p in processes:
-        p.join()    
+        p.join()
+        p.close()    
 
     return dicts
     
@@ -103,6 +144,18 @@ def decrypt_vector(v, mife, pp, sk):
         aggregated_list.extend([mife.decrypt(pp=pp, c=[v[cl][dict_pos][i] for cl in range(number_of_clients)], sk=sk) for i in range(dict_size)])
 
     return aggregated_list
+
+
+def parallel_decrypt_vector_compact(v,mife,pp,sk,max_workers):
+
+    chunks = split_list_decrypt(v, max_workers)
+    decrypt = partial(mife.decrypt, pp=pp, sk=sk)
+    process_chunk_with_fun = partial(process_chunk,f=decrypt)
+    with Pool(max_workers) as pool:
+        results = pool.map(process_chunk_with_fun, chunks)
+
+    return [item for sublist in results for item in sublist]
+    
 
 def parallel_decrypt_vector(v,mife,pp,sk,max_workers):
     
@@ -123,12 +176,14 @@ def parallel_decrypt_vector(v,mife,pp,sk,max_workers):
         number_of_weight += dict_size
 
         p = Process(target=worker, args=([v[cl][dict_pos] for cl in range(number_of_clients)], decrypt, dict_size))
+        # p.daemon = True
         p.start()
         processes.append(p)
         # aggregated_weights_list.extend([mife.decrypt(pp=server['pp'], c=[encrypted_model_set[i][dict_pos][j] for i in range(number_of_clients)], sk=server['sky']) for j in range(dict_size)])
     
     for p in processes:
         p.join()
+        p.kill()
 
     for dict_pos in range(max_workers + 1):
         dict_size = len(v[0][dict_pos])

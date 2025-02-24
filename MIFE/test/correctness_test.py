@@ -14,7 +14,7 @@ Y_BIT = 1
 N = 64
 n = 4
 m = 1
-n_weights = 100
+n_weights = 500
 Q_BIT = 2048 # bit per DDH
 bound = 1<<X_BIT
 
@@ -61,16 +61,16 @@ def main():
     encrypted_model_set = []
 
     if parallel_flag:
-        from MIFE.utilities import parallel_decrypt_vector, parallel_encrypt_vector
+        from MIFE.utilities import parallel_decrypt_vector_compact, parallel_encrypt_vector_compact
 
         for i in range(n):
             print(f"Encrypting model {i}...")
-            encrypted_model_set.append(parallel_encrypt_vector(x[i],MAX_WORKERS,mife,mk.get_enc_key(i)))
+            encrypted_model_set.append(parallel_encrypt_vector_compact(x[i],MAX_WORKERS,mife,mk.get_enc_key(i)))
             # with ProcessPoolExecutor() as executor:
             #     encrypted_model_set.append(list(executor.map(encrypt_with_key, x[i])))
 
         print("Encryption complete.")
-        ptx = parallel_decrypt_vector(encrypted_model_set,mife,mk.pp,sk,MAX_WORKERS)
+        ptx = parallel_decrypt_vector_compact(encrypted_model_set,mife,mk.pp,sk,MAX_WORKERS)
         # ptx = [mife.decrypt([encrypted_model_set[i][j] for i in range(n)], mk.pp, sk) for j in range(n_weights)]
         print("Decryption complete.")
 
