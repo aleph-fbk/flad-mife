@@ -28,7 +28,7 @@ from multiprocessing import Manager, Process
 import shutil
 
 
-MAX_WORKERS = 31 # number of parallel workers
+# MAX_WORKERS = 31 # number of parallel workers
 
 # General hyperparameters
 EXPERIMENTS = 10
@@ -57,10 +57,11 @@ def trainClientModel(model, epochs, X_train, Y_train,X_val, Y_val, steps_per_epo
 def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, dataset_name, mife_elements_for_server, epochs='auto', steps='auto', training_mode = 'flad', weighted=False,optimizer='SGD',nr_experiments=EXPERIMENTS):
     
     round_fieldnames = ['Model', 'Round', 'AvgF1']
-    tuning_fieldnames = ['Model', 'Epochs', 'Steps', 'Mode', 'Weighted', 'Experiment', 'ClientsOrder','Round', 'TotalClientRounds', 'F1','Time(sec)']
+    tuning_fieldnames = ['Model', 'Epochs', 'Steps', 'Mode', 'Weighted', 'Experiment', 'ClientsOrder','Round', 'TotalClientRounds', 'F1','Time(sec)','AggregationTime(sec)']
     for client in clients:
         round_fieldnames.append(client['name'] + '(f1)')
         round_fieldnames.append(client['name']+ '(loss)')
+        tuning_fieldnames.append(client['name'] + '(EncryptionTime(sec))')
         tuning_fieldnames.append(client['name'] + '(f1)')
         tuning_fieldnames.append(client['name'] + '(rounds)')
 
@@ -130,7 +131,7 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
                     training_time = client['round_time']
 
             print('\nEncrypting model...')
-            client['encrypted_model'] = encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True)
+            client['encrypted_model'], client['encryption_time'] = encrypt_model(client['model'], mife_obj, client['pk'], mife_elements_for_server['max_workers'], parall_flag=True)
 
             #encrypted_model_set.append(encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True))
 
@@ -142,7 +143,7 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
         print("==============================================")
         print("Aggregating models...")
         t0 = time.time()
-        server['model'] = aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife_obj, weighted)
+        server['model'], server['aggregation_time'] = aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife_obj, mife_elements_for_server['max_workers'], weighted)
         t1 = time.time()
         print('Aggregation time: %.2f s' % (t1-t0))  
         print("==============================================")
@@ -186,11 +187,12 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
         row = {'Model': model_name, 'Epochs': epochs, 'Steps': steps,
                 'Mode': training_mode, 'Weighted': weighted, 'Experiment': 0,
                 'ClientsOrder': ' '.join(str(c) for c in client_indeces), 'Round': int(total_rounds),
-                'TotalClientRounds': int(total_client_rounds), 'F1': '{:06.5f}'.format(f1_val), 'Time(sec)': '{:06.2f}'.format(training_time)}
+                'TotalClientRounds': int(total_client_rounds), 'F1': '{:06.5f}'.format(f1_val), 'Time(sec)': '{:06.2f}'.format(training_time), 'AggregationTime(sec)': '{:06.2f}'.format(server['aggregation_time'])}
         for client in clients:
+            row[client['name']+'(EncryptionTime(sec))'] = '{:06.2f}'.format(client['encryption_time'])
             row[client['name'] + '(f1)'] = '{:06.5f}'.format(client['f1_val_best'])
             row[client['name'] + '(rounds)'] = int(client['rounds'])
-
+        
         tuning_writer.writerow(row)
         hyperparamters_tuning_file.flush()
 
@@ -232,17 +234,15 @@ def select_clients(server, clients, mife, training_mode):
         
     return average_f1
 
-def encrypt_model(model, mife, key, parall_flag = True):
-
-    from MIFE.utilities import parallel_encrypt_vector
+def encrypt_model(model, mife, key, max_workers, parall_flag = True):
 
     weights = flatten_keras_weights(model)
     encoded_weights = encode_vector(weights,X_bit=X_BIT,sig=NUM_DECIMAL) # encoding the weights into X_BIT long integers
     t0 = time.time()    
-    encrypted_vector = parallel_encrypt_vector_compact(v=encoded_weights,mife=mife,key=key,max_workers=MAX_WORKERS)
+    encrypted_vector = parallel_encrypt_vector_compact(v=encoded_weights,mife=mife,key=key,max_workers=max_workers)
     t1 = time.time()    
     print('Encryption time: %.2f s\n' % (t1-t0))  
-    return encrypted_vector
+    return encrypted_vector, t1-t0
         
 
 def assess_encrypted_server_model(server, parameter, clients, mife, update_clients=False, print_f1=False):
@@ -254,7 +254,10 @@ def assess_encrypted_server_model(server, parameter, clients, mife, update_clien
 
         f1_val_list.append(mife.encrypt([encode(client_f1,NUM_DECIMAL,X_BIT)], client['pk']))
         if update_clients == True:
-            client['f1_val'] = f1_score(Y_val, Y_pred)
+            if parameter == 'model':
+                client['f1_val'] = f1_score(Y_val, Y_pred)
+            else:
+                client['f1_val_best'] = f1_score(Y_val, Y_pred)
         if print_f1 == True:
             print(client['name'] + ": " + str(client['f1_val']))
 
@@ -419,14 +422,14 @@ def aggregation_weighted_sum(server, clients,weighted=True):
     return aggregated_model
 
 
-def aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, weighted=False):
+def aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, max_workers, weighted=False):
     
-    from MIFE.utilities import parallel_decrypt_vector
-
     aggregated_model = clone_model(server['model'])
     number_of_clients = len(encrypted_model_set)
 
-    aggregated_weights_list = parallel_decrypt_vector_compact(v=encrypted_model_set,mife=mife,pp=server['pp'],sk=server['sky'],max_workers=MAX_WORKERS)
+    t0 = time.time()
+    aggregated_weights_list = parallel_decrypt_vector_compact(v=encrypted_model_set,mife=mife,pp=server['pp'],sk=server['sky'],max_workers=max_workers)
+    t1 = time.time()
 
     aggregated_weights_list = decode_vector(aggregated_weights_list,NUM_DECIMAL)
     number_of_weight = len(aggregated_weights_list)
@@ -436,5 +439,5 @@ def aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, weight
     set_flat_weights(aggregated_model,aggregated_weights_list)
     # aggregated_model.set_weights(aggregated_weights_list)
 
-    return aggregated_model
+    return aggregated_model, t1-t0
 

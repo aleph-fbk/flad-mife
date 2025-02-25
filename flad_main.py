@@ -20,7 +20,7 @@ import argparse
 
 X_BIT = 11 #upper bound on the inf norm of the model weights bit length
 N = 64 #security parameter
-Q_BIT = 1024 # bit size of DDH prime
+Q_BIT = 3072 # bit size of DDH prime
 NUM_DECIMAL = 2
 
 def main(argv):
@@ -53,7 +53,9 @@ def main(argv):
     
     parser.add_argument('-S', '--rn_seed', nargs='?', type=int, default=0,
                         help='Seed value for RNGs used in FLAD')
-
+    
+    parser.add_argument('-W', '--max_workers', nargs='?', type=int, default=15,
+                        help='Number of workers for parallel enc/dec')
     args = parser.parse_args()
 
     SEED = args.rn_seed
@@ -81,7 +83,7 @@ def main(argv):
     if args.output_folder == None:
         if os.path.isdir("./log") == False:
             os.mkdir("./log")
-        output_folder = "./log" + "/federated_training-" + time.strftime("%Y%m%d-%H%M%S") + "/"
+        output_folder = "./log" + "/federated_training-" + protocol + "-" + time.strftime("%Y%m%d-%H%M%S") + "/"
     else:
         output_folder = args.output_folder
         
@@ -142,6 +144,7 @@ def main(argv):
         mife_element_for_server['sky'] = mife.keygen([[1] for _ in range(num_clients)],key) # server MIFE key
         mife_element_for_server['pp'] = key.pp # MIFE public parameters
         mife_element_for_server['mife'] = mife # MIFE class
+        mife_element_for_server['max_workers'] = args.max_workers
         print('\n\n'+'='*15)
         print("MIFE parameters:")
         print(key.pp)
