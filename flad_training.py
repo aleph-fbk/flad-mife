@@ -107,7 +107,7 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
         update_client_training_parameters_local(client_subset, 'steps_per_epoch', steps, f1_val, MAX_STEPS, MIN_STEPS)
 
         training_time = 0
-        encrypted_model_set = []
+        
         for index,client in enumerate(client_subset):
             # "Send" the global model to the client
             print("Training client in folder: ", client['folder'])
@@ -129,13 +129,16 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
                 if client['round_time'] > training_time:
                     training_time = client['round_time']
 
-            t0 = time.time()    
-            encrypted_model_set.append(encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True))
-            t1 = time.time()    
-
             print('\nEncrypting model...')
-            print('Encryption time: %.2f s\n' % (t1-t0))  
+            client['encrypted_model'] = encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True)
 
+            #encrypted_model_set.append(encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True))
+
+
+        encrypted_model_set = []
+        for client in client_subset:
+            encrypted_model_set.append(client['encrypted_model'])
+            
         print("==============================================")
         print("Aggregating models...")
         t0 = time.time()
@@ -235,8 +238,11 @@ def encrypt_model(model, mife, key, parall_flag = True):
 
     weights = flatten_keras_weights(model)
     encoded_weights = encode_vector(weights,X_bit=X_BIT,sig=NUM_DECIMAL) # encoding the weights into X_BIT long integers
-    
-    return parallel_encrypt_vector(v=encoded_weights,mife=mife,key=key,max_workers=MAX_WORKERS)
+    t0 = time.time()    
+    encrypted_vector = parallel_encrypt_vector_compact(v=encoded_weights,mife=mife,key=key,max_workers=MAX_WORKERS)
+    t1 = time.time()    
+    print('Encryption time: %.2f s\n' % (t1-t0))  
+    return encrypted_vector
         
 
 def assess_encrypted_server_model(server, parameter, clients, mife, update_clients=False, print_f1=False):
@@ -420,7 +426,7 @@ def aggregation_encrypted_weighted_sum(server, encrypted_model_set, mife, weight
     aggregated_model = clone_model(server['model'])
     number_of_clients = len(encrypted_model_set)
 
-    aggregated_weights_list = parallel_decrypt_vector(v=encrypted_model_set,mife=mife,pp=server['pp'],sk=server['sky'],max_workers=MAX_WORKERS)
+    aggregated_weights_list = parallel_decrypt_vector_compact(v=encrypted_model_set,mife=mife,pp=server['pp'],sk=server['sky'],max_workers=MAX_WORKERS)
 
     aggregated_weights_list = decode_vector(aggregated_weights_list,NUM_DECIMAL)
     number_of_weight = len(aggregated_weights_list)

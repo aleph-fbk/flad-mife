@@ -20,7 +20,7 @@ m = 1
 n_weights = 5000
 Q_BIT = 2048 # bit per DDH
 
-num_loop = 10
+num_loop = 4
 
 
 # def wrap(x,f):
