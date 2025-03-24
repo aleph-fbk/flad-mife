@@ -1,5 +1,5 @@
 from secrets import randbelow
-from typing import List, Tuple
+from typing import List
 
 from mife.data.matrix import Matrix
 from mife.common import discrete_log_bound, inner_product, getStrongPrime
@@ -144,7 +144,7 @@ class _FeDamgardMulti_MK:
 
 
 class _FeDamgardMulti_SK:
-    def __init__(self,y: List[List[int]], sy: List[List[int]], z: List[int]):
+    def __init__(self,y: List[List[int]], sy: List[List[int]], z: List[int], LUT:dict):
         """
         Initialize FeDamgardMulti decryption key
 
@@ -155,13 +155,13 @@ class _FeDamgardMulti_SK:
         self.y = y
         self.sy = sy
         self.z = z
+        self.LUT = LUT
 
     def export(self):
         return {
             "sy": [[int(i) for i in vec] for vec in self.y],
             "z": self.z
         }
-
 
 class _FeDamgardMulti_C:
     def __init__(self, c0: GroupElem, c: list[GroupElem]):
@@ -250,7 +250,7 @@ class FeDamgardMulti:
             cul = cul + yc - dt
             
         cul = cul - pp.to_group(sk.z)
-        return discrete_log_bound(cul, pp.g, bound)
+        return sk.LUT[cul.__hash__()]
     
     @staticmethod
     def keygen(y: List[List[int]], key: _FeDamgardMulti_MK) -> _FeDamgardMulti_SK:
@@ -261,6 +261,8 @@ class FeDamgardMulti:
         :param key: FeDamgardMulti master key
         :return: FeDamgardMulti decryption key
         """
+
+        LUT = {}
         if len(y) != key.pp.n:
             raise Exception(f"Function vector must be a {key.pp.n} x {key.pp.m} matrix")
         
@@ -275,4 +277,16 @@ class FeDamgardMulti:
             d.append(y_i.dot(key.msk[i].s))  # Compute <y, msk.s[i]> for each i
             z += y_i.dot(key.msk[i].u)  
 
-        return _FeDamgardMulti_SK(y, d, z)
+        LUT[1] = 0
+        bound = key.pp.B*key.pp.n
+        
+        keyp = key.pp.g
+        keyn = -key.pp.g
+        for i in range(1,bound+1):
+            LUT[keyp.__hash__()] = i 
+            LUT[keyn.__hash__()] = -i
+            
+            keyp += key.pp.g
+            keyn -= key.pp.g
+
+        return _FeDamgardMulti_SK(y, d, z, LUT)

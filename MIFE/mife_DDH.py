@@ -148,7 +148,7 @@ class _FeDamgardMulti_MK:
 
 
 class _FeDamgardMulti_SK:
-    def __init__(self, y: List[List[int]], d: List[Matrix], z: int):
+    def __init__(self, y: List[List[int]], d: List[Matrix], z: int, LUT: dict):
         """
         Initialize FeDamgardMulti decryption key
 
@@ -159,14 +159,15 @@ class _FeDamgardMulti_SK:
         self.y = y
         self.d = d
         self.z = z
+        self.LUT = LUT
 
     def export(self):
         return {
             "y": [[int(i) for i in vec] for vec in self.y],
             "d": [x.export() for x in self.d],
-            "z": self.z
+            "z": self.z,
+            "LUT": self.LUT.export()
         }
-
 
 class _FeDamgardMulti_C:
     def __init__(self, t: Matrix, c: Matrix):
@@ -247,7 +248,7 @@ class FeDamgardMulti:
         :param bound: Bound for the discrete log problem
         :return: Decrypted message vector
         """
-        bound = [-pp.B*pp.n,pp.B*pp.n]
+        # bound = [-pp.B*pp.n,pp.B*pp.n]
         cul = pp.F.identity()
         for i in range(pp.n):
             # [y_i dot c_i]
@@ -259,7 +260,7 @@ class FeDamgardMulti:
             cul = cul + yc - dt
 
         cul = cul - pp.to_group(sk.z)
-        return discrete_log_bound(cul, pp.g, bound)
+        return sk.LUT[cul.__hash__()]
 
     @staticmethod
     def keygen(y: List[List[int]], key: _FeDamgardMulti_MK) -> _FeDamgardMulti_SK:
@@ -271,6 +272,7 @@ class FeDamgardMulti:
         :param msk: FeDamgardMulti master secret key
         :return: FeDamgardMulti decryption key
         """
+
         if len(y) != key.pp.n:
             raise Exception(f"Function vector must be a {key.pp.n} x {key.pp.m} matrix")
         d = []
@@ -282,4 +284,21 @@ class FeDamgardMulti:
             d.append(y_i * key.msk[i].w)
             z += y_i.dot(key.msk[i].u)
 
-        return _FeDamgardMulti_SK(y, d, z)
+
+        LUT = {}
+        LUT[1] = 0
+        bound = key.pp.B*key.pp.n
+
+        keyp = key.pp.g
+        keyn = -key.pp.g
+
+        for i in range(1,bound):
+
+            LUT[keyp.__hash__()] = i 
+            LUT[keyn.__hash__()] = -i
+            
+            keyp += key.pp.g
+            keyn -= key.pp.g
+
+
+        return _FeDamgardMulti_SK(y, d, z, LUT)

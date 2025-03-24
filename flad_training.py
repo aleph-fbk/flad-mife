@@ -40,7 +40,7 @@ CLIENT_FRACTION = 0.8 # Fraction of clients selected at each round for FedAvg-ba
 def trainClientModel(model, epochs, X_train, Y_train,X_val, Y_val, steps_per_epoch=None):
 
     if steps_per_epoch != None and steps_per_epoch > 0:
-        batch_size = max(int(len(Y_train) / steps_per_epoch),1) # min batch size set to 1
+        batch_size = max(int(round(len(Y_train) / steps_per_epoch)),1) # min batch size set to 1
 
     print("Batch size: " + str(batch_size))
     tp0 = time.time()
