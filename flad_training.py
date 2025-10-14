@@ -23,8 +23,6 @@ import csv
 from sklearn.metrics import f1_score
 import random
 import gc
-from functools import partial
-from multiprocessing import Manager, Process
 import shutil
 
 
@@ -109,6 +107,8 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
 
         training_time = 0
         
+        encrypted_model_set = {}
+
         for index,client in enumerate(client_subset):
             # "Send" the global model to the client
             print("Training client in folder: ", client['folder'])
@@ -131,14 +131,9 @@ def  FederatedTrain(clients, model_type, outdir, time_window, max_flow_len, data
                     training_time = client['round_time']
 
             print('\nEncrypting model...')
-            client['encrypted_model'], client['encryption_time'] = encrypt_model(client['model'], mife_obj, client['pk'], mife_elements_for_server['max_workers'], parall_flag=True)
-
-            #encrypted_model_set.append(encrypt_model(client['model'], mife_obj, client['pk'], parall_flag=True))
+            encrypted_model_set[index], client['encryption_time'] = encrypt_model(client['model'], mife_obj, client['pk'], mife_elements_for_server['max_workers'], parall_flag=True)
 
 
-        encrypted_model_set = []
-        for client in client_subset:
-            encrypted_model_set.append(client['encrypted_model'])
             
         print("==============================================")
         print("Aggregating models...")
