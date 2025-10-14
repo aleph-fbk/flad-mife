@@ -1,7 +1,7 @@
-#from mife.multi.damgard import FeDamgardMulti
+#from mife.multi.damgard import FeDDHMulti
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from mife_DDH import FeDamgardMulti
+from mife_DDH import FeDDHMulti
 import time
 from concurrent.futures import ProcessPoolExecutor
 from functools import partial
@@ -12,7 +12,7 @@ X_bit = 11
 bound = 1<<X_bit
 n = 3
 m = 10
-mife = FeDamgardMulti()
+mife = FeDDHMulti()
 generate_param_time = time.time()
 key = mife.generate(n, m, X_bit)
 generate_param_time = time.time() - generate_param_time

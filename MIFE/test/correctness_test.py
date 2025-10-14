@@ -28,13 +28,13 @@ def main():
 
     if args.protocol == 'DDH':
         print("testing DDH")
-        from mife_DDH import FeDamgardMulti
-        mife = FeDamgardMulti()
+        from mife_DDH import FeDDHMulti
+        mife = FeDDHMulti()
         mk = mife.generate(n, m, X_BIT, Q_BIT)
     elif args.protocol == 'DDH_sel':
         print("testing DDH_sel")
-        from mife_DDH_sel import FeDamgardMulti
-        mife = FeDamgardMulti()
+        from mife_DDH_sel import FeDDHMulti
+        mife = FeDDHMulti()
         mk = mife.generate(n, m, X_BIT, Q_BIT)
     elif args.protocol == 'LWE':
         print("testing LWE")
