@@ -1,0 +1,7 @@
+
+# Required packages
+
+tensorflow==2.16.1
+scikit-learn
+pyshark
+pymife

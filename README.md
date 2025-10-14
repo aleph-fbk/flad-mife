@@ -130,6 +130,22 @@ By default, the script executes the FL procedure using all the FLAD algorithms, 
 The final global model and the log of the training process are saved in ```h5``` and ```csv``` format respectively in the folder specified with the option ```--output_folder```, or within a subfolder of folder ```./log```, if ```--output_folder``` is not used.
 
 
+## Cryptography
+FLAD offers the option to add a layer of cryptography in order to mask client's training data from the aggregator, without compromising the federated learning process. To achieve this, a Multi Input Functional Encryption (MIFE) scheme is used. Our MIFE scheme comes in 4 different versions, depending on the underlying hardness assumption and security options. Available hardness assumptions are Learning With Errors (LWE) and Decisional Diffie Hellman (DDH), both with a selectively secure and an adaptively secure option. More on the subject can be found in our [related paper](https://arxiv.org/abs/2504.00563v1), where benchmarks and security considerations are provided. 
+To run such protocols a further package is needed:
+```
+(python312)$ pip install pymife
+```
+Alternatively, all the required packages for both the plain FLAD and MIFE can be found in the requirements.txt file.
+The desired MIFE version can be chosen using the ```--protocol``` (or ```-p```) option while launching ```flad_main```; options are:
+- ```LWE``` for the LWE adaptive version;
+- ```LWE_sel``` for the LWE selective version;
+- ```DDH``` for the DDH adaptive version;
+- ```DDH_sel``` for the DDH selective version.
+
+Finally, if no scheme is chosen, ```LWE_sel``` will be used by default.
+
+
 ## Acknowledgements
 
 If you are using FLAD's code for scientific research, please cite the related paper in your manuscript as follows:
