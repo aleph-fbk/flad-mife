@@ -1,4 +1,3 @@
-#from mife.multi.damgard import FeDamgardMulti
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mife_LWE import FeLWEMulti

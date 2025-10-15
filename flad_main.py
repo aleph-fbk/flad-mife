@@ -74,9 +74,9 @@ def main(argv):
         case 'LWE_sel':
             from MIFE.mife_LWE_sel import FeLWEMulti as mife_class
         case 'DDH':
-            from MIFE.mife_DDH import FeDamgardMulti as mife_class
+            from MIFE.mife_DDH import FeDDHMulti as mife_class
         case 'DDH_sel':
-            from MIFE.mife_DDH_sel import FeDamgardMulti as mife_class
+            from MIFE.mife_DDH_sel import FeDDHMulti as mife_class
 
     mife = mife_class()
 
