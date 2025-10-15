@@ -13,22 +13,21 @@ def split_list_decrypt(lst,n):
     residual_weights = n_weights%n
     return [[[lst[i][j+t] for i in range(n_clients)] for t in range(chunk_size)] for j in range(0, chunk_size * n, chunk_size)] + [[[lst[i][chunk_size * n+t] for i in range(n_clients)] for t in range(residual_weights)]]
 
-def encode(x: float, sig: int, X_bit: int) -> int: #prende in input un float e un numero di cifre significative (sig).
-    x = float(f"{x:.{sig}f}") #restituisce il float x con sig cifre significative.
-#possibilità di vettorializzazione.
+def encode(x: float, sig: int, X_bit: int) -> int: #take as input a float and a number of significant digits (sig).
+    x = float(f"{x:.{sig}f}") #returns the float x with sig significant digits.
     enc = int(x*10**sig)
     if enc.bit_length() > X_bit:
         raise Exception(f"{x} is too large for {X_bit} bits")
     return enc
 
-def decode(enc: int, sig: int) -> float: #prende in input un int e un numero di cifre significative (sig).
-    return enc / 10**sig #restituisce il float decodificato.
+def decode(enc: int, sig: int) -> float: #take as input an int and a number of significant digits (sig).
+    return enc / 10**sig #returns the float corresponding to the int enc with sig significant digits.
 
-def encode_vector(x, sig: int, X_bit: int): #prende in input una lista di float e un numero di cifre significative (sig).
-    return [[encode(v, sig, X_bit)] for v in x] #restituisce una lista di liste di interi
+def encode_vector(x, sig: int, X_bit: int): #take as input a list of floats and a number of significant digits (sig).
+    return [[encode(v, sig, X_bit)] for v in x] #returns a list of lists of ints
 
-def decode_vector(x, sig: int): #prende in input una lista di int e un numero di cifre significative (sig).
-    return [decode(v, sig) for v in x] #restituisce una lista di liste di float
+def decode_vector(x, sig: int): #take as input a list of lists of ints and a number of significant digits (sig).
+    return [decode(v, sig) for v in x] # returns a list of lists of floats
 
 
 def flatten_keras_weights(model):
@@ -72,11 +71,11 @@ def parallel_encrypt_vector_compact(v, max_workers, mife, key):
 
     encrypt_with_key = partial(mife.encrypt, key=key)
     process_chunk_with_fun = partial(process_chunk,f=encrypt_with_key)
-    # Crea un pool di lavoratori
+    # Build the worker pool and map the function to the chunks
     with Pool(max_workers) as pool:
         results = pool.map(process_chunk_with_fun, chunks)
 
-    # Unisce i risultati
+    # Join the results from all workers
     return [item for sublist in results for item in sublist]
 
 
