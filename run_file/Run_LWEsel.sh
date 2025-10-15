@@ -6,7 +6,7 @@ PYTHON_SCRIPT="flad_main.py"
 # Specifying the arguments 
 
 ARG1="--clients sample_clients/  "
-ARG2="--protocol DDH_sel"
+ARG2="--protocol LWE_sel"
 ARG3="--max_workers 15"
 
 # Log file for output 

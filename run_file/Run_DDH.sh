@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Path to your main Python script
+# Path to main 
 PYTHON_SCRIPT="flad_main.py"
 
-# Specify the arguments directly
+# Specifying the arguments 
 
 ARG1="--clients sample_clients/  "
 ARG2="--protocol DDH"
 ARG3="--max_workers 15"
 
-# Log file for output (optional, helps with debugging)
+# Log file for output 
 LOG_FILE="output.log"
 
 # Ensure the script is executable

@@ -1,2247 +1,0 @@
-/home/ubuntu/miniconda3/envs/python312/lib/python3.12/site-packages/keras/src/layers/reshaping/flatten.py:37: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
-  super().__init__(**kwargs)
-
-
-===============
-MIFE parameters:
-n = 4,
-m = 1,
-x_bit = 12,
-q = 3072
-===============
-
-
-Model: "mlp"
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
-┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
-┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
-│ flatten (Flatten)               │ (None, 110)            │             0 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ fc0 (Dense)                     │ (None, 32)             │         3,552 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ fc1 (Dense)                     │ (None, 32)             │         1,056 │
-├─────────────────────────────────┼────────────────────────┼───────────────┤
-│ fc3 (Dense)                     │ (None, 1)              │            33 │
-└─────────────────────────────────┴────────────────────────┴───────────────┘
- Total params: 4,641 (18.13 KB)
- Trainable params: 4,641 (18.13 KB)
- Non-trainable params: 0 (0.00 B)
-None
-client 00-WebDDoS ha f1 0 e sigma 1.0
-client 01-LDAP ha f1 0 e sigma 1.0
-client 02-Portmap ha f1 0 e sigma 1.0
-client 03-DNS ha f1 0 e sigma 1.0
-client 00-WebDDoS ha f1 0 e sigma 1.0
-client 01-LDAP ha f1 0 e sigma 1.0
-client 02-Portmap ha f1 0 e sigma 1.0
-client 03-DNS ha f1 0 e sigma 1.0
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 1
-Epoch 1/6
-321/321 - 1s - 3ms/step - accuracy: 0.8318 - loss: 0.3908 - val_accuracy: 0.8649 - val_loss: 0.2044
-Epoch 2/6
-321/321 - 1s - 2ms/step - accuracy: 0.9190 - loss: 0.1838 - val_accuracy: 0.9730 - val_loss: 0.0675
-Epoch 3/6
-321/321 - 1s - 2ms/step - accuracy: 0.9502 - loss: 0.1247 - val_accuracy: 0.9730 - val_loss: 0.0733
-Epoch 4/6
-321/321 - 1s - 2ms/step - accuracy: 0.9564 - loss: 0.0989 - val_accuracy: 0.9730 - val_loss: 0.0832
-Epoch 5/6
-321/321 - 1s - 2ms/step - accuracy: 0.9844 - loss: 0.0707 - val_accuracy: 0.9730 - val_loss: 0.0592
-Epoch 6/6
-321/321 - 1s - 2ms/step - accuracy: 0.9907 - loss: 0.0564 - val_accuracy: 0.9730 - val_loss: 0.0619
-
-Encrypting model...
-Encryption time: 15.06 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 1
-Epoch 1/6
-633/633 - 2s - 2ms/step - accuracy: 0.9542 - loss: 0.1231 - val_accuracy: 0.5259 - val_loss: 1.4180
-Epoch 2/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 0.0020 - val_accuracy: 0.5259 - val_loss: 1.5712
-Epoch 3/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 9.9722e-04 - val_accuracy: 0.5259 - val_loss: 1.6094
-Epoch 4/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 6.2110e-04 - val_accuracy: 0.5259 - val_loss: 1.6145
-Epoch 5/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 4.3520e-04 - val_accuracy: 0.5259 - val_loss: 1.6199
-Epoch 6/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 3.2927e-04 - val_accuracy: 0.5259 - val_loss: 1.6297
-
-Encrypting model...
-Encryption time: 14.89 s
-
-Training client in folder:  sample_clients/02-Portmap/
-Batch size: 1
-Epoch 1/6
-1299/1299 - 2s - 2ms/step - accuracy: 0.9461 - loss: 0.1505 - val_accuracy: 0.9793 - val_loss: 0.1294
-Epoch 2/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9900 - loss: 0.0394 - val_accuracy: 0.9793 - val_loss: 0.1258
-Epoch 3/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9908 - loss: 0.0226 - val_accuracy: 0.9862 - val_loss: 0.1409
-Epoch 4/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9969 - loss: 0.0115 - val_accuracy: 0.9862 - val_loss: 0.1615
-Epoch 5/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9977 - loss: 0.0067 - val_accuracy: 0.9862 - val_loss: 0.1931
-Epoch 6/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9962 - loss: 0.0094 - val_accuracy: 0.9793 - val_loss: 0.2038
-
-Encrypting model...
-Encryption time: 14.92 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 2
-Epoch 1/6
-1298/1298 - 3s - 2ms/step - accuracy: 0.9487 - loss: 0.1631 - val_accuracy: 0.9828 - val_loss: 0.0749
-Epoch 2/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9761 - loss: 0.0888 - val_accuracy: 0.9828 - val_loss: 0.0647
-Epoch 3/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9769 - loss: 0.0762 - val_accuracy: 0.9828 - val_loss: 0.0580
-Epoch 4/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9769 - loss: 0.0703 - val_accuracy: 0.9863 - val_loss: 0.0549
-Epoch 5/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9780 - loss: 0.0657 - val_accuracy: 0.9863 - val_loss: 0.0519
-Epoch 6/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9788 - loss: 0.0625 - val_accuracy: 0.9863 - val_loss: 0.0502
-
-Encrypting model...
-Encryption time: 15.00 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.46 s
-==============================================
-
-################ Round: 00001 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 71ms/step
-00-WebDDoS: 0.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-01-LDAP: 0.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.0
-==============================================
-Average F1 Score:  0.0
-Stop counter: 1
-Current Max F1 Score: 0
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 58ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 64ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 01-LDAP ha f1 0.0 e sigma 1.0
-client 02-Portmap ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.0 e sigma 1.0
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 01-LDAP ha f1 0.0 e sigma 1.0
-client 02-Portmap ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.0 e sigma 1.0
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 1
-Epoch 1/6
-321/321 - 1s - 3ms/step - accuracy: 0.9221 - loss: 0.2023 - val_accuracy: 0.9730 - val_loss: 0.0942
-Epoch 2/6
-321/321 - 1s - 2ms/step - accuracy: 0.9533 - loss: 0.1139 - val_accuracy: 0.9730 - val_loss: 0.0803
-Epoch 3/6
-321/321 - 1s - 2ms/step - accuracy: 0.9751 - loss: 0.0736 - val_accuracy: 0.9730 - val_loss: 0.0377
-Epoch 4/6
-321/321 - 1s - 2ms/step - accuracy: 0.9907 - loss: 0.0487 - val_accuracy: 0.9730 - val_loss: 0.0470
-Epoch 5/6
-321/321 - 1s - 2ms/step - accuracy: 0.9938 - loss: 0.0364 - val_accuracy: 0.9730 - val_loss: 0.0233
-Epoch 6/6
-321/321 - 1s - 2ms/step - accuracy: 0.9938 - loss: 0.0314 - val_accuracy: 1.0000 - val_loss: 0.0136
-
-Encrypting model...
-Encryption time: 14.91 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 1
-Epoch 1/6
-633/633 - 2s - 3ms/step - accuracy: 0.9953 - loss: 0.0164 - val_accuracy: 0.5481 - val_loss: 0.9237
-Epoch 2/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 9.7949e-04 - val_accuracy: 0.5481 - val_loss: 0.9672
-Epoch 3/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 5.5356e-04 - val_accuracy: 0.5556 - val_loss: 0.9844
-Epoch 4/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 3.8220e-04 - val_accuracy: 0.5556 - val_loss: 0.9975
-Epoch 5/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 2.8910e-04 - val_accuracy: 0.5556 - val_loss: 1.0094
-Epoch 6/6
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 2.3086e-04 - val_accuracy: 0.5556 - val_loss: 1.0211
-
-Encrypting model...
-Encryption time: 14.90 s
-
-Training client in folder:  sample_clients/02-Portmap/
-Batch size: 1
-Epoch 1/6
-1299/1299 - 2s - 2ms/step - accuracy: 0.9823 - loss: 0.0558 - val_accuracy: 0.9862 - val_loss: 0.1335
-Epoch 2/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9969 - loss: 0.0118 - val_accuracy: 0.9862 - val_loss: 0.1597
-Epoch 3/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9969 - loss: 0.0094 - val_accuracy: 0.9793 - val_loss: 0.1776
-Epoch 4/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9954 - loss: 0.0087 - val_accuracy: 0.9793 - val_loss: 0.1932
-Epoch 5/6
-1299/1299 - 2s - 1ms/step - accuracy: 0.9992 - loss: 0.0036 - val_accuracy: 0.9793 - val_loss: 0.2161
-Epoch 6/6
-1299/1299 - 2s - 1ms/step - accuracy: 1.0000 - loss: 0.0014 - val_accuracy: 0.9793 - val_loss: 0.2338
-
-Encrypting model...
-Encryption time: 15.01 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 2
-Epoch 1/6
-1298/1298 - 3s - 2ms/step - accuracy: 0.9665 - loss: 0.1018 - val_accuracy: 0.9828 - val_loss: 0.0580
-Epoch 2/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9757 - loss: 0.0730 - val_accuracy: 0.9828 - val_loss: 0.0579
-Epoch 3/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9780 - loss: 0.0671 - val_accuracy: 0.9863 - val_loss: 0.0538
-Epoch 4/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9796 - loss: 0.0630 - val_accuracy: 0.9863 - val_loss: 0.0520
-Epoch 5/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9800 - loss: 0.0602 - val_accuracy: 0.9863 - val_loss: 0.0491
-Epoch 6/6
-1298/1298 - 2s - 2ms/step - accuracy: 0.9803 - loss: 0.0576 - val_accuracy: 0.9863 - val_loss: 0.0484
-
-Encrypting model...
-Encryption time: 14.96 s
-
-==============================================
-Aggregating models...
-WARNING:tensorflow:5 out of the last 9 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x7f1bd4727ec0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-Aggregation time: 34.53 s
-==============================================
-
-################ Round: 00002 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 47ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 61ms/step
-WARNING:tensorflow:6 out of the last 10 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x7f1bd4727ec0> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
-00-WebDDoS: 0.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-01-LDAP: 0.9714285714285714
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9879518072289156
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.14388489208633093
-==============================================
-Average F1 Score:  0.525
-New Max F1 Score: 0.525
-Current Max F1 Score: 0.525
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.7259335388831792
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.7259335388831792
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 1
-Epoch 1/6
-321/321 - 1s - 3ms/step - accuracy: 0.9283 - loss: 0.1756 - val_accuracy: 0.9459 - val_loss: 0.1379
-Epoch 2/6
-321/321 - 1s - 2ms/step - accuracy: 0.9751 - loss: 0.0786 - val_accuracy: 1.0000 - val_loss: 0.0137
-Epoch 3/6
-321/321 - 1s - 2ms/step - accuracy: 0.9782 - loss: 0.0578 - val_accuracy: 1.0000 - val_loss: 0.0100
-Epoch 4/6
-321/321 - 1s - 2ms/step - accuracy: 0.9938 - loss: 0.0390 - val_accuracy: 1.0000 - val_loss: 0.0130
-Epoch 5/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0289 - val_accuracy: 1.0000 - val_loss: 0.0120
-Epoch 6/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0287 - val_accuracy: 1.0000 - val_loss: 0.0044
-
-Encrypting model...
-Encryption time: 16.80 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 15.14 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.97 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 3
-Epoch 1/5
-865/865 - 2s - 2ms/step - accuracy: 0.9750 - loss: 0.0814 - val_accuracy: 0.9828 - val_loss: 0.0516
-Epoch 2/5
-865/865 - 1s - 2ms/step - accuracy: 0.9807 - loss: 0.0629 - val_accuracy: 0.9828 - val_loss: 0.0495
-Epoch 3/5
-865/865 - 1s - 2ms/step - accuracy: 0.9800 - loss: 0.0595 - val_accuracy: 0.9897 - val_loss: 0.0481
-Epoch 4/5
-865/865 - 1s - 2ms/step - accuracy: 0.9819 - loss: 0.0570 - val_accuracy: 0.9863 - val_loss: 0.0470
-Epoch 5/5
-865/865 - 1s - 2ms/step - accuracy: 0.9827 - loss: 0.0548 - val_accuracy: 0.9897 - val_loss: 0.0453
-
-Encrypting model...
-Encryption time: 15.00 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.61 s
-==============================================
-
-################ Round: 00003 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 70ms/step
-01-LDAP: 0.3333333333333333
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-02-Portmap: 0.25
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.14388489208633093
-==============================================
-Average F1 Score:  0.405
-Stop counter: 1
-Current Max F1 Score: 0.525
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 25ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 39ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 01-LDAP ha f1 0.3333333333333333 e sigma 0.3650793650793651
-client 02-Portmap ha f1 0.25 e sigma 0.5238095238095238
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.7259335388831792
-client 01-LDAP ha f1 0.3333333333333333 e sigma 0.3650793650793651
-client 02-Portmap ha f1 0.25 e sigma 0.5238095238095238
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.7259335388831792
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 15.10 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 1
-Epoch 1/3
-633/633 - 1s - 2ms/step - accuracy: 0.9968 - loss: 0.0100 - val_accuracy: 0.5852 - val_loss: 0.6193
-Epoch 2/3
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 6.4308e-04 - val_accuracy: 0.8889 - val_loss: 0.6496
-Epoch 3/3
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 3.7928e-04 - val_accuracy: 0.8889 - val_loss: 0.6706
-
-Encrypting model...
-Encryption time: 15.01 s
-
-Training client in folder:  sample_clients/02-Portmap/
-Batch size: 2
-Epoch 1/4
-650/650 - 2s - 3ms/step - accuracy: 0.9877 - loss: 0.0324 - val_accuracy: 0.9862 - val_loss: 0.0965
-Epoch 2/4
-650/650 - 1s - 2ms/step - accuracy: 1.0000 - loss: 0.0058 - val_accuracy: 0.9793 - val_loss: 0.1166
-Epoch 3/4
-650/650 - 1s - 2ms/step - accuracy: 1.0000 - loss: 0.0029 - val_accuracy: 0.9793 - val_loss: 0.1316
-Epoch 4/4
-650/650 - 1s - 2ms/step - accuracy: 1.0000 - loss: 0.0018 - val_accuracy: 0.9793 - val_loss: 0.1429
-
-Encrypting model...
-Encryption time: 15.01 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 3
-Epoch 1/5
-865/865 - 2s - 2ms/step - accuracy: 0.9773 - loss: 0.0718 - val_accuracy: 0.9828 - val_loss: 0.0488
-Epoch 2/5
-865/865 - 1s - 2ms/step - accuracy: 0.9819 - loss: 0.0595 - val_accuracy: 0.9828 - val_loss: 0.0472
-Epoch 3/5
-865/865 - 1s - 2ms/step - accuracy: 0.9815 - loss: 0.0570 - val_accuracy: 0.9897 - val_loss: 0.0457
-Epoch 4/5
-865/865 - 1s - 2ms/step - accuracy: 0.9815 - loss: 0.0555 - val_accuracy: 0.9828 - val_loss: 0.0455
-Epoch 5/5
-865/865 - 1s - 2ms/step - accuracy: 0.9827 - loss: 0.0537 - val_accuracy: 0.9863 - val_loss: 0.0448
-
-Encrypting model...
-Encryption time: 15.48 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.26 s
-==============================================
-
-################ Round: 00004 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.8947368421052632
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9818181818181818
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-03-DNS: 0.14388489208633093
-==============================================
-Average F1 Score:  0.5025
-Stop counter: 2
-Current Max F1 Score: 0.525
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.7259335388831792
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.7259335388831792
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 1
-Epoch 1/6
-321/321 - 1s - 3ms/step - accuracy: 0.9190 - loss: 0.1810 - val_accuracy: 0.9459 - val_loss: 0.1510
-Epoch 2/6
-321/321 - 1s - 2ms/step - accuracy: 0.9782 - loss: 0.0612 - val_accuracy: 1.0000 - val_loss: 0.0109
-Epoch 3/6
-321/321 - 1s - 2ms/step - accuracy: 0.9938 - loss: 0.0397 - val_accuracy: 1.0000 - val_loss: 0.0039
-Epoch 4/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0287 - val_accuracy: 1.0000 - val_loss: 0.0041
-Epoch 5/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0279 - val_accuracy: 1.0000 - val_loss: 0.0026
-Epoch 6/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0252 - val_accuracy: 1.0000 - val_loss: 0.0022
-
-Encrypting model...
-Encryption time: 17.54 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 15.12 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.96 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 3
-Epoch 1/5
-865/865 - 2s - 2ms/step - accuracy: 0.9800 - loss: 0.0666 - val_accuracy: 0.9897 - val_loss: 0.0466
-Epoch 2/5
-865/865 - 1s - 2ms/step - accuracy: 0.9811 - loss: 0.0579 - val_accuracy: 0.9897 - val_loss: 0.0461
-Epoch 3/5
-865/865 - 1s - 2ms/step - accuracy: 0.9819 - loss: 0.0558 - val_accuracy: 0.9863 - val_loss: 0.0447
-Epoch 4/5
-865/865 - 1s - 2ms/step - accuracy: 0.9823 - loss: 0.0537 - val_accuracy: 0.9863 - val_loss: 0.0445
-Epoch 5/5
-865/865 - 1s - 2ms/step - accuracy: 0.9827 - loss: 0.0524 - val_accuracy: 0.9863 - val_loss: 0.0433
-
-Encrypting model...
-Encryption time: 14.92 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.37 s
-==============================================
-
-################ Round: 00005 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 1.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-03-DNS: 0.15714285714285714
-==============================================
-Average F1 Score:  0.76
-New Max F1 Score: 0.76
-Current Max F1 Score: 0.76
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 57ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-client 03-DNS ha f1 0.15714285714285714 e sigma 0.793233082706767
-client 03-DNS ha f1 0.15714285714285714 e sigma 0.793233082706767
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 14.86 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 15.03 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.94 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 3
-Epoch 1/5
-865/865 - 2s - 2ms/step - accuracy: 0.9803 - loss: 0.0625 - val_accuracy: 0.9897 - val_loss: 0.0444
-Epoch 2/5
-865/865 - 1s - 1ms/step - accuracy: 0.9807 - loss: 0.0560 - val_accuracy: 0.9897 - val_loss: 0.0446
-Epoch 3/5
-865/865 - 1s - 1ms/step - accuracy: 0.9815 - loss: 0.0540 - val_accuracy: 0.9897 - val_loss: 0.0443
-Epoch 4/5
-865/865 - 1s - 1ms/step - accuracy: 0.9823 - loss: 0.0529 - val_accuracy: 0.9897 - val_loss: 0.0423
-Epoch 5/5
-865/865 - 1s - 2ms/step - accuracy: 0.9827 - loss: 0.0518 - val_accuracy: 0.9897 - val_loss: 0.0418
-
-Encrypting model...
-Encryption time: 15.03 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.62 s
-==============================================
-
-################ Round: 00006 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 69ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.32558139534883723
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.2653061224489796
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.62
-Stop counter: 1
-Current Max F1 Score: 0.76
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 01-LDAP ha f1 0.32558139534883723 e sigma 0.5716034271725826
-client 02-Portmap ha f1 0.2653061224489796 e sigma 0.6509129967776585
-client 01-LDAP ha f1 0.32558139534883723 e sigma 0.5716034271725826
-client 02-Portmap ha f1 0.2653061224489796 e sigma 0.6509129967776585
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 15.17 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 1
-Epoch 1/4
-633/633 - 2s - 3ms/step - accuracy: 0.9953 - loss: 0.0176 - val_accuracy: 0.8963 - val_loss: 0.4136
-Epoch 2/4
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 5.0396e-04 - val_accuracy: 0.8889 - val_loss: 0.4352
-Epoch 3/4
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 3.1399e-04 - val_accuracy: 0.8889 - val_loss: 0.4551
-Epoch 4/4
-633/633 - 1s - 2ms/step - accuracy: 1.0000 - loss: 2.2165e-04 - val_accuracy: 0.8889 - val_loss: 0.4774
-
-Encrypting model...
-Encryption time: 15.08 s
-
-Training client in folder:  sample_clients/02-Portmap/
-Batch size: 1
-Epoch 1/5
-1299/1299 - 2s - 2ms/step - accuracy: 0.9831 - loss: 0.0458 - val_accuracy: 0.9793 - val_loss: 0.0965
-Epoch 2/5
-1299/1299 - 2s - 1ms/step - accuracy: 1.0000 - loss: 0.0028 - val_accuracy: 0.9793 - val_loss: 0.1295
-Epoch 3/5
-1299/1299 - 2s - 1ms/step - accuracy: 1.0000 - loss: 0.0012 - val_accuracy: 0.9793 - val_loss: 0.1475
-Epoch 4/5
-1299/1299 - 2s - 1ms/step - accuracy: 1.0000 - loss: 7.4614e-04 - val_accuracy: 0.9793 - val_loss: 0.1612
-Epoch 5/5
-1299/1299 - 2s - 1ms/step - accuracy: 1.0000 - loss: 5.3094e-04 - val_accuracy: 0.9793 - val_loss: 0.1695
-
-Encrypting model...
-Encryption time: 15.21 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.01 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.75 s
-==============================================
-
-################ Round: 00007 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 47ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 61ms/step
-00-WebDDoS: 0.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9722222222222222
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9879518072289156
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
-03-DNS: 0.14388489208633093
-==============================================
-Average F1 Score:  0.525
-Stop counter: 2
-Current Max F1 Score: 0.76
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.8106777735706172
-client 00-WebDDoS ha f1 0.0 e sigma 1.0
-client 03-DNS ha f1 0.14388489208633093 e sigma 0.8106777735706172
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 1
-Epoch 1/6
-321/321 - 1s - 3ms/step - accuracy: 0.9377 - loss: 0.1615 - val_accuracy: 0.9459 - val_loss: 0.0589
-Epoch 2/6
-321/321 - 1s - 2ms/step - accuracy: 0.9907 - loss: 0.0421 - val_accuracy: 1.0000 - val_loss: 0.0050
-Epoch 3/6
-321/321 - 1s - 2ms/step - accuracy: 0.9938 - loss: 0.0286 - val_accuracy: 1.0000 - val_loss: 0.0038
-Epoch 4/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0274 - val_accuracy: 1.0000 - val_loss: 0.0051
-Epoch 5/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0266 - val_accuracy: 1.0000 - val_loss: 0.0046
-Epoch 6/6
-321/321 - 1s - 2ms/step - accuracy: 0.9969 - loss: 0.0245 - val_accuracy: 1.0000 - val_loss: 0.0026
-
-Encrypting model...
-Encryption time: 15.12 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 15.31 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.02 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 3
-Epoch 1/5
-865/865 - 2s - 2ms/step - accuracy: 0.9803 - loss: 0.0621 - val_accuracy: 0.9897 - val_loss: 0.0433
-Epoch 2/5
-865/865 - 1s - 2ms/step - accuracy: 0.9819 - loss: 0.0554 - val_accuracy: 0.9897 - val_loss: 0.0434
-Epoch 3/5
-865/865 - 1s - 2ms/step - accuracy: 0.9823 - loss: 0.0532 - val_accuracy: 0.9897 - val_loss: 0.0429
-Epoch 4/5
-865/865 - 1s - 2ms/step - accuracy: 0.9827 - loss: 0.0516 - val_accuracy: 0.9897 - val_loss: 0.0415
-Epoch 5/5
-865/865 - 1s - 2ms/step - accuracy: 0.9827 - loss: 0.0509 - val_accuracy: 0.9897 - val_loss: 0.0418
-
-Encrypting model...
-Encryption time: 15.08 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.52 s
-==============================================
-
-################ Round: 00008 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 69ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9859154929577465
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9880952380952381
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.965
-New Max F1 Score: 0.965
-Current Max F1 Score: 0.965
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 48ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 73ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.07093085581561547
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.07093085581561547
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9782 - loss: 0.0586 - val_accuracy: 1.0000 - val_loss: 0.0084
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0307 - val_accuracy: 1.0000 - val_loss: 0.0058
-
-Encrypting model...
-Encryption time: 15.10 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 14.96 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.20 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.82 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.42 s
-==============================================
-
-################ Round: 00009 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 69ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 1.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9880952380952381
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9675
-New Max F1 Score: 0.9675
-Current Max F1 Score: 0.9675
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.07333155127862426
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.07333155127862426
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9844 - loss: 0.0436 - val_accuracy: 1.0000 - val_loss: 0.0074
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0290 - val_accuracy: 1.0000 - val_loss: 0.0052
-
-Encrypting model...
-Encryption time: 15.09 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 15.04 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.09 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.13 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.66 s
-==============================================
-
-################ Round: 00010 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 68ms/step
-00-WebDDoS: 1.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9859154929577465
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-02-Portmap: 0.9764705882352941
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9875
-New Max F1 Score: 0.9875
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-client 01-LDAP ha f1 0.9859154929577465 e sigma 0.0016045640934213132
-client 02-Portmap ha f1 0.9764705882352941 e sigma 0.01116902457185413
-client 03-DNS ha f1 0.984251968503937 e sigma 0.0032891458187979832
-client 01-LDAP ha f1 0.9859154929577465 e sigma 0.0016045640934213132
-client 02-Portmap ha f1 0.9764705882352941 e sigma 0.01116902457185413
-client 03-DNS ha f1 0.984251968503937 e sigma 0.0032891458187979832
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 48
-Epoch 1/2
-14/14 - 1s - 43ms/step - accuracy: 0.9905 - loss: 0.0398 - val_accuracy: 0.9481 - val_loss: 0.1034
-Epoch 2/2
-14/14 - 0s - 10ms/step - accuracy: 1.0000 - loss: 0.0088 - val_accuracy: 0.9481 - val_loss: 0.1252
-
-Encrypting model...
-Encryption time: 14.97 s
-
-Training client in folder:  sample_clients/02-Portmap/
-Batch size: 59
-Epoch 1/2
-23/23 - 1s - 27ms/step - accuracy: 0.9892 - loss: 0.0428 - val_accuracy: 0.9862 - val_loss: 0.0519
-Epoch 2/2
-23/23 - 0s - 7ms/step - accuracy: 0.9931 - loss: 0.0200 - val_accuracy: 0.9862 - val_loss: 0.0561
-
-Encrypting model...
-Encryption time: 15.16 s
-
-Training client in folder:  sample_clients/03-DNS/
-Batch size: 185
-Epoch 1/2
-15/15 - 1s - 42ms/step - accuracy: 0.9815 - loss: 0.0731 - val_accuracy: 0.9863 - val_loss: 0.0448
-Epoch 2/2
-15/15 - 0s - 10ms/step - accuracy: 0.9846 - loss: 0.0525 - val_accuracy: 0.9863 - val_loss: 0.0408
-
-Encrypting model...
-Encryption time: 15.57 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.35 s
-==============================================
-
-################ Round: 00011 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 75ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9722222222222222
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9575
-Stop counter: 1
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9907 - loss: 0.0413 - val_accuracy: 1.0000 - val_loss: 0.0058
-Epoch 2/2
-107/107 - 0s - 2ms/step - accuracy: 0.9969 - loss: 0.0281 - val_accuracy: 1.0000 - val_loss: 0.0042
-
-Encrypting model...
-Encryption time: 15.03 s
-
-Training client in folder:  sample_clients/01-LDAP/
-
-Encrypting model...
-Encryption time: 15.14 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.15 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.22 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.69 s
-==============================================
-
-################ Round: 00012 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 1.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.958904109589041
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9880952380952381
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9825
-Stop counter: 2
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 37ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 51ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-client 01-LDAP ha f1 0.958904109589041 e sigma 0.028957863707300253
-client 01-LDAP ha f1 0.958904109589041 e sigma 0.028957863707300253
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 15.19 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 15
-Epoch 1/2
-43/43 - 1s - 16ms/step - accuracy: 0.9968 - loss: 0.0115 - val_accuracy: 0.9481 - val_loss: 0.1280
-Epoch 2/2
-43/43 - 0s - 4ms/step - accuracy: 1.0000 - loss: 0.0028 - val_accuracy: 0.9407 - val_loss: 0.1594
-
-Encrypting model...
-Encryption time: 15.15 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.93 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.87 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.97 s
-==============================================
-
-################ Round: 00013 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 57ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 64ms/step
-01-LDAP: 0.9459459459459459
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9525
-Stop counter: 3
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 26ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9459459459459459 e sigma 0.042080054738282635
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9459459459459459 e sigma 0.042080054738282635
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9907 - loss: 0.0381 - val_accuracy: 1.0000 - val_loss: 0.0051
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0276 - val_accuracy: 1.0000 - val_loss: 0.0039
-
-Encrypting model...
-Encryption time: 15.08 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 11
-Epoch 1/2
-58/58 - 1s - 12ms/step - accuracy: 1.0000 - loss: 0.0066 - val_accuracy: 0.9481 - val_loss: 0.1495
-Epoch 2/2
-58/58 - 0s - 4ms/step - accuracy: 1.0000 - loss: 0.0022 - val_accuracy: 0.9407 - val_loss: 0.1780
-
-Encrypting model...
-Encryption time: 15.10 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.98 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.03 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.81 s
-==============================================
-
-################ Round: 00014 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-01-LDAP: 0.9333333333333333
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9475
-Stop counter: 4
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9333333333333333 e sigma 0.054852320675105516
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9333333333333333 e sigma 0.054852320675105516
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9938 - loss: 0.0341 - val_accuracy: 1.0000 - val_loss: 0.0043
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0270 - val_accuracy: 1.0000 - val_loss: 0.0035
-
-Encrypting model...
-Encryption time: 15.22 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 9
-Epoch 1/2
-71/71 - 1s - 10ms/step - accuracy: 1.0000 - loss: 0.0061 - val_accuracy: 0.9407 - val_loss: 0.1541
-Epoch 2/2
-71/71 - 0s - 3ms/step - accuracy: 1.0000 - loss: 0.0017 - val_accuracy: 0.9407 - val_loss: 0.1842
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.04 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.95 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.62 s
-==============================================
-
-################ Round: 00015 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 58ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9333333333333333
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9475
-Stop counter: 5
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9333333333333333 e sigma 0.054852320675105516
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9333333333333333 e sigma 0.054852320675105516
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0324 - val_accuracy: 1.0000 - val_loss: 0.0040
-Epoch 2/2
-107/107 - 0s - 2ms/step - accuracy: 0.9969 - loss: 0.0265 - val_accuracy: 1.0000 - val_loss: 0.0033
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 9
-Epoch 1/2
-71/71 - 1s - 10ms/step - accuracy: 1.0000 - loss: 0.0058 - val_accuracy: 0.9407 - val_loss: 0.1501
-Epoch 2/2
-71/71 - 0s - 3ms/step - accuracy: 1.0000 - loss: 0.0016 - val_accuracy: 0.9407 - val_loss: 0.1822
-
-Encrypting model...
-Encryption time: 14.94 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.03 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.94 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.48 s
-==============================================
-
-################ Round: 00016 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9210526315789473
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.945
-Stop counter: 6
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9938 - loss: 0.0310 - val_accuracy: 1.0000 - val_loss: 0.0036
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0262 - val_accuracy: 1.0000 - val_loss: 0.0032
-
-Encrypting model...
-Encryption time: 14.89 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 8
-Epoch 1/2
-80/80 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0053 - val_accuracy: 0.9407 - val_loss: 0.1531
-Epoch 2/2
-80/80 - 0s - 4ms/step - accuracy: 1.0000 - loss: 0.0014 - val_accuracy: 0.9407 - val_loss: 0.1836
-
-Encrypting model...
-Encryption time: 14.90 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.11 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.21 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.58 s
-==============================================
-
-################ Round: 00017 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 61ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 57ms/step
-01-LDAP: 0.9210526315789473
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.945
-Stop counter: 7
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0301 - val_accuracy: 1.0000 - val_loss: 0.0035
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0259 - val_accuracy: 1.0000 - val_loss: 0.0032
-
-Encrypting model...
-Encryption time: 15.26 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 8
-Epoch 1/2
-80/80 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0049 - val_accuracy: 0.9407 - val_loss: 0.1519
-Epoch 2/2
-80/80 - 0s - 3ms/step - accuracy: 1.0000 - loss: 0.0013 - val_accuracy: 0.9407 - val_loss: 0.1815
-
-Encrypting model...
-Encryption time: 15.03 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.91 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.06 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.92 s
-==============================================
-
-################ Round: 00018 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 70ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 66ms/step
-01-LDAP: 0.9210526315789473
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.945
-Stop counter: 8
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 34ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9938 - loss: 0.0293 - val_accuracy: 1.0000 - val_loss: 0.0032
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0255 - val_accuracy: 1.0000 - val_loss: 0.0027
-
-Encrypting model...
-Encryption time: 15.18 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 8
-Epoch 1/2
-80/80 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0047 - val_accuracy: 0.9407 - val_loss: 0.1500
-Epoch 2/2
-80/80 - 0s - 3ms/step - accuracy: 1.0000 - loss: 0.0013 - val_accuracy: 0.9407 - val_loss: 0.1789
-
-Encrypting model...
-Encryption time: 15.08 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.98 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.12 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.79 s
-==============================================
-
-################ Round: 00019 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9210526315789473
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 39ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.945
-Stop counter: 9
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9210526315789473 e sigma 0.06728847435043311
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0287 - val_accuracy: 1.0000 - val_loss: 0.0030
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0253 - val_accuracy: 1.0000 - val_loss: 0.0027
-
-Encrypting model...
-Encryption time: 15.07 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 8
-Epoch 1/2
-80/80 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0045 - val_accuracy: 0.9407 - val_loss: 0.1480
-Epoch 2/2
-80/80 - 0s - 3ms/step - accuracy: 1.0000 - loss: 0.0012 - val_accuracy: 0.9407 - val_loss: 0.1770
-
-Encrypting model...
-Encryption time: 15.13 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.08 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.24 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.90 s
-==============================================
-
-################ Round: 00020 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 1.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9675
-Stop counter: 10
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 15.22 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 0.9984 - loss: 0.0041 - val_accuracy: 0.9407 - val_loss: 0.1506
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 0.0010 - val_accuracy: 0.9407 - val_loss: 0.1804
-
-Encrypting model...
-Encryption time: 15.18 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.22 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.25 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.72 s
-==============================================
-
-################ Round: 00021 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 58ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9879518072289156
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.945
-Stop counter: 11
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 51ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0312 - val_accuracy: 1.0000 - val_loss: 0.0029
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0253 - val_accuracy: 1.0000 - val_loss: 0.0026
-
-Encrypting model...
-Encryption time: 15.31 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0028 - val_accuracy: 0.9407 - val_loss: 0.1565
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 9.9926e-04 - val_accuracy: 0.9407 - val_loss: 0.1841
-
-Encrypting model...
-Encryption time: 15.00 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.06 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.11 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.22 s
-==============================================
-
-################ Round: 00022 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 71ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 12
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9938 - loss: 0.0288 - val_accuracy: 1.0000 - val_loss: 0.0027
-Epoch 2/2
-107/107 - 0s - 2ms/step - accuracy: 0.9969 - loss: 0.0250 - val_accuracy: 1.0000 - val_loss: 0.0025
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0033 - val_accuracy: 0.9407 - val_loss: 0.1520
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 9.5130e-04 - val_accuracy: 0.9407 - val_loss: 0.1805
-
-Encrypting model...
-Encryption time: 15.15 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.00 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.22 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.90 s
-==============================================
-
-################ Round: 00023 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 62ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 52ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 67ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 13
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 62ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0282 - val_accuracy: 1.0000 - val_loss: 0.0028
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0248 - val_accuracy: 1.0000 - val_loss: 0.0026
-
-Encrypting model...
-Encryption time: 17.21 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0033 - val_accuracy: 0.9407 - val_loss: 0.1482
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 9.2216e-04 - val_accuracy: 0.9407 - val_loss: 0.1773
-
-Encrypting model...
-Encryption time: 15.22 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.16 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.07 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.04 s
-==============================================
-
-################ Round: 00024 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 40ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 14
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 37ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 52ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0279 - val_accuracy: 1.0000 - val_loss: 0.0028
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0246 - val_accuracy: 1.0000 - val_loss: 0.0025
-
-Encrypting model...
-Encryption time: 15.09 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0033 - val_accuracy: 0.9407 - val_loss: 0.1438
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 8.9856e-04 - val_accuracy: 0.9407 - val_loss: 0.1760
-
-Encrypting model...
-Encryption time: 15.06 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.79 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.59 s
-==============================================
-
-################ Round: 00025 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 59ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 15
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0276 - val_accuracy: 1.0000 - val_loss: 0.0027
-Epoch 2/2
-107/107 - 0s - 2ms/step - accuracy: 0.9969 - loss: 0.0245 - val_accuracy: 1.0000 - val_loss: 0.0025
-
-Encrypting model...
-Encryption time: 15.13 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0033 - val_accuracy: 0.9407 - val_loss: 0.1413
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 8.7431e-04 - val_accuracy: 0.9407 - val_loss: 0.1733
-
-Encrypting model...
-Encryption time: 15.09 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.27 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.91 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.22 s
-==============================================
-
-################ Round: 00026 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 58ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 16
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0273 - val_accuracy: 1.0000 - val_loss: 0.0025
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0243 - val_accuracy: 1.0000 - val_loss: 0.0024
-
-Encrypting model...
-Encryption time: 15.16 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0032 - val_accuracy: 0.9407 - val_loss: 0.1408
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 8.5354e-04 - val_accuracy: 0.9407 - val_loss: 0.1728
-
-Encrypting model...
-Encryption time: 14.98 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.20 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.01 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.62 s
-==============================================
-
-################ Round: 00027 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 50ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 65ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 17
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0270 - val_accuracy: 1.0000 - val_loss: 0.0025
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0242 - val_accuracy: 1.0000 - val_loss: 0.0024
-
-Encrypting model...
-Encryption time: 15.29 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0032 - val_accuracy: 0.9407 - val_loss: 0.1400
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 8.3241e-04 - val_accuracy: 0.9407 - val_loss: 0.1714
-
-Encrypting model...
-Encryption time: 14.93 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 14.97 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.22 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.99 s
-==============================================
-
-################ Round: 00028 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 57ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 18
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9938 - loss: 0.0269 - val_accuracy: 1.0000 - val_loss: 0.0025
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0241 - val_accuracy: 1.0000 - val_loss: 0.0023
-
-Encrypting model...
-Encryption time: 15.13 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0031 - val_accuracy: 0.9407 - val_loss: 0.1393
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 8.1430e-04 - val_accuracy: 0.9407 - val_loss: 0.1698
-
-Encrypting model...
-Encryption time: 15.08 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.33 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.08 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.67 s
-==============================================
-
-################ Round: 00029 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 16ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 19
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 38ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 53ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0267 - val_accuracy: 1.0000 - val_loss: 0.0024
-Epoch 2/2
-107/107 - 0s - 2ms/step - accuracy: 0.9969 - loss: 0.0240 - val_accuracy: 1.0000 - val_loss: 0.0023
-
-Encrypting model...
-Encryption time: 15.26 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0031 - val_accuracy: 0.9407 - val_loss: 0.1379
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.9975e-04 - val_accuracy: 0.9407 - val_loss: 0.1674
-
-Encrypting model...
-Encryption time: 15.10 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.32 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.63 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.51 s
-==============================================
-
-################ Round: 00030 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 58ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 73ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 51ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 65ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 20
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 48ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0266 - val_accuracy: 1.0000 - val_loss: 0.0024
-Epoch 2/2
-107/107 - 0s - 2ms/step - accuracy: 0.9969 - loss: 0.0240 - val_accuracy: 1.0000 - val_loss: 0.0022
-
-Encrypting model...
-Encryption time: 16.10 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0031 - val_accuracy: 0.9407 - val_loss: 0.1377
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.8657e-04 - val_accuracy: 0.9407 - val_loss: 0.1670
-
-Encrypting model...
-Encryption time: 16.36 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 16.78 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 16.44 s
-
-==============================================
-Aggregating models...
-Aggregation time: 36.31 s
-==============================================
-
-################ Round: 00031 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 63ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 81ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 73ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 99ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 19ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 35ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 21ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 21
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 33ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0266 - val_accuracy: 1.0000 - val_loss: 0.0024
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0239 - val_accuracy: 1.0000 - val_loss: 0.0023
-
-Encrypting model...
-Encryption time: 15.69 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0030 - val_accuracy: 0.9407 - val_loss: 0.1360
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.7289e-04 - val_accuracy: 0.9407 - val_loss: 0.1654
-
-Encrypting model...
-Encryption time: 15.36 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.51 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 14.84 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.15 s
-==============================================
-
-################ Round: 00032 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 73ms/step
-00-WebDDoS: 1.0
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9675
-Stop counter: 22
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 29ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 20ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 34ms/step
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-
-Encrypting model...
-Encryption time: 15.18 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0030 - val_accuracy: 0.9407 - val_loss: 0.1351
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.6410e-04 - val_accuracy: 0.9407 - val_loss: 0.1648
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.05 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 16.77 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.91 s
-==============================================
-
-################ Round: 00033 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 54ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-02-Portmap: 0.9879518072289156
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-03-DNS: 0.9802371541501976
-==============================================
-Average F1 Score:  0.945
-Stop counter: 23
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 39ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0295 - val_accuracy: 1.0000 - val_loss: 0.0024
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0240 - val_accuracy: 1.0000 - val_loss: 0.0022
-
-Encrypting model...
-Encryption time: 15.19 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0022 - val_accuracy: 0.9407 - val_loss: 0.1398
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.5521e-04 - val_accuracy: 0.9407 - val_loss: 0.1670
-
-Encrypting model...
-Encryption time: 15.01 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.12 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.20 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.89 s
-==============================================
-
-################ Round: 00034 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 45ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 60ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 42ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 24
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 6ms/step - accuracy: 0.9938 - loss: 0.0272 - val_accuracy: 1.0000 - val_loss: 0.0023
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0237 - val_accuracy: 1.0000 - val_loss: 0.0022
-
-Encrypting model...
-Encryption time: 15.09 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 9ms/step - accuracy: 1.0000 - loss: 0.0026 - val_accuracy: 0.9407 - val_loss: 0.1370
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.4490e-04 - val_accuracy: 0.9407 - val_loss: 0.1646
-
-Encrypting model...
-Encryption time: 15.10 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.09 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.22 s
-
-==============================================
-Aggregating models...
-Aggregation time: 34.88 s
-==============================================
-
-################ Round: 00035 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 70ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 55ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 25
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 44ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 27ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 41ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 31ms/step
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-client 00-WebDDoS ha f1 0.896551724137931 e sigma 0.09209951986032303
-client 01-LDAP ha f1 0.9090909090909091 e sigma 0.07940161104718074
-Training client in folder:  sample_clients/00-WebDDoS/
-Batch size: 3
-Epoch 1/2
-107/107 - 1s - 7ms/step - accuracy: 0.9938 - loss: 0.0266 - val_accuracy: 1.0000 - val_loss: 0.0023
-Epoch 2/2
-107/107 - 0s - 3ms/step - accuracy: 0.9969 - loss: 0.0237 - val_accuracy: 1.0000 - val_loss: 0.0022
-
-Encrypting model...
-Encryption time: 15.23 s
-
-Training client in folder:  sample_clients/01-LDAP/
-Batch size: 7
-Epoch 1/2
-91/91 - 1s - 8ms/step - accuracy: 1.0000 - loss: 0.0027 - val_accuracy: 0.9407 - val_loss: 0.1358
-Epoch 2/2
-91/91 - 0s - 3ms/step - accuracy: 1.0000 - loss: 7.3335e-04 - val_accuracy: 0.9407 - val_loss: 0.1632
-
-Encrypting model...
-Encryption time: 15.71 s
-
-Training client in folder:  sample_clients/02-Portmap/
-
-Encrypting model...
-Encryption time: 15.08 s
-
-Training client in folder:  sample_clients/03-DNS/
-
-Encrypting model...
-Encryption time: 15.13 s
-
-==============================================
-Aggregating models...
-Aggregation time: 35.14 s
-==============================================
-
-################ Round: 00036 ################
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 56ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 71ms/step
-00-WebDDoS: 0.896551724137931
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 70ms/step
-01-LDAP: 0.9090909090909091
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-02-Portmap: 0.9820359281437125
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step
-03-DNS: 0.984251968503937
-==============================================
-Average F1 Score:  0.9425
-Stop counter: 26
-Current Max F1 Score: 0.9875
-##############################################
-
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 30ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 46ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 28ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 43ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 17ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 18ms/step[1m1/1[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 32ms/step
-WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 

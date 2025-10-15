@@ -9,15 +9,17 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
+# MIFE parameters
 X_BIT = 11
 Y_BIT = 1
 N = 64
 n = 4
 m = 1
 n_weights = 500
-Q_BIT = 2048 # bit per DDH
+Q_BIT = 2048 # bit for DDH
 bound = 1<<X_BIT
 
+# parameters for parallel processing
 MAX_WORKERS = 30
 parallel_flag = True
 
@@ -51,11 +53,14 @@ def main():
         print("Invalid protocol selected.")
 
 
+    # Generate random models
     x = [[[randrange(-bound,bound) for _ in range(m)] for _ in range(n_weights)] for _ in range(n)]
     # x = [[[1 for _ in range(m)] for _ in range(n_weights)] for _ in range(n)]
 
+    # Compute the expected result
     result = [sum([sum([x[i][j][h] for h in range(m)]) for i in range(n)]) for j in range(n_weights)]
 
+    # Generate secret key
     sk = mife.keygen([[1 for _ in range(m)] for _ in range(n)], mk)
 
     encrypted_model_set = []
