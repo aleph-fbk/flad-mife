@@ -148,13 +148,11 @@ Finally, if no scheme is chosen, ```LWE_sel``` will be used by default.
 
 ## Acknowledgements
 
-If you are using FLAD's code for scientific research, please cite the related paper in your manuscript as follows:
+If you are using FLAD's or MIFE's code for scientific research, please cite the related paper in your manuscript as follows:
 
-Roberto Doriguzzi-Corin, Domenico Siracusa, "FLAD: Adaptive Federated Learning for DDoS attack detection", in Computers & Security,
-Volume 137, 2024, doi: 10.1016/j.cose.2023.103597
+Sorbera, E., Zanetti, F., Brandi, G., Tomasi, A., Doriguzzi-Corin, R., & Ranise, S. (2025). Adaptive Federated Learning with Functional Encryption: A Comparison of Classical and Quantum-safe Options. arXiv preprint arXiv:2504.00563.
 
-This work has been partially supported by the European Union's Horizon Europe Programme under grant agreement No 101070473 (project FLUIDOS). 
-
+This work was supported by Ministero delle Imprese e del Made in Italy (IPCEI Cloud DM 27 giugno 2022 – IPCEI-CL-0000007) and European Union (Next Generation EU).
 
 ## License
 
