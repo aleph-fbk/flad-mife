@@ -17,7 +17,7 @@ from numpy import matmul, dot
 class _FeLWEMulti_PP:
     def __init__(self, M: int, N: int, X_bit: int, Y_bit: int, p: int, n: int, m: int, q: int, B: float, sigma: float):
         """
-        Initialize FeDamgardMulti oublic parameters
+        Initialize FeLWEMulti oublic parameters
         
         :param X_bit: bit bound on user's single weight
         :param Y_bit: bit bound on y
@@ -60,15 +60,16 @@ class _FeLWEMulti_PP:
         
 
 
-class _FeLWEMulti_MPKi:
+class _FeLWEMulti_CSKi:
 
     def __init__(self, U: Matrix, A: Matrix):
         """
-        Initialize FeDamgardMulti master public key
-
-        :param a: [1, random_element]
-        :param wa: W * a
-        """
+        Initialize FeLWEMulti encryption key
+        
+        :param U: A * s + E mod q
+        :param A: random matrix in Z_q of dimension M x N
+        """ 
+        
         self.U = U
         self.A = A
 
@@ -80,9 +81,10 @@ class _FeLWEMulti_MSKi:
 
     def __init__(self, s: Matrix, u: Matrix):
         """
-        Initialize FeDamgardMulti master secret key
-
-        :param w: [[random_element, random_element] for _ in range(m)]]
+        Initialize each client part of the FeDDHMulti master secret key
+        
+        :param s: random matrix in Z of dimension N x m
+        :param u: random vector in Z_q of dimension m
         """
         self.s = s
         self.u = u
@@ -91,17 +93,18 @@ class _FeLWEMulti_MSKi:
         pass
 
 class _FeLWEMulti_EncK:
-    def __init__(self, pp: _FeLWEMulti_PP, mpk: _FeLWEMulti_MPKi, u: Matrix):
+    def __init__(self, pp: _FeLWEMulti_PP, cski: _FeLWEMulti_CSKi, ui: Matrix):
         """
-        Initialize FeDamgardMulti encryption key
+        Initialize FeLWEMulti encryption key
 
-        :param g: Generator of the group
-        :param F: Group to use for the scheme
-        :param mpk: Master public key
+        :param pp: Public parameters
+        :param cski: Client's encryption keys
+        :param ui: Some row of the original u matrix
         """
+
         self.pp = pp
-        self.mpk = mpk
-        self.u = u
+        self.cski = cski
+        self.ui = ui
 
     def export(self):
         pass
@@ -110,18 +113,18 @@ class _FeLWEMulti_EncK:
 
 class _FeLWEMulti_MK:
     def __init__(self, pp: _FeLWEMulti_PP,
-                 mpk: list[_FeLWEMulti_MPKi], msk: list[_FeLWEMulti_MSKi] = [None]):
+                 csk: list[_FeLWEMulti_CSKi], msk: list[_FeLWEMulti_MSKi] = [None]):
         """
-        Initialize FeDamgardMulti master key
+        Initialize FeLWEMulti master key
 
         :param pp: Public parameters
-        :param mpk: Master public key
+        :param csk: List of all clients' encryption keys
         :param msk: Master secret key
         """
 
         self.pp = pp
         self.msk = msk
-        self.mpk = mpk
+        self.csk = csk
 
     def get_enc_key(self, index: int):
         """
@@ -134,13 +137,13 @@ class _FeLWEMulti_MK:
             raise Exception("The master key has no private key")
         if not (0 <= index < self.pp.n):
             raise Exception(f"Index must be within [0,{self.n})")
-        return _FeLWEMulti_EncK(self.pp, self.mpk[index], self.msk[index].u)
+        return _FeLWEMulti_EncK(self.pp, self.csk[index], self.msk[index].u)
 
     def has_private_key(self) -> bool:
         return self.msk[0] is not None
 
     def get_public_key(self, index: int):
-        return _FeLWEMulti_MK(self.pp, self.mpk[index])
+        return _FeLWEMulti_MK(self.pp, self.csk[index])
     
     def get_private_key(self, index: int):
         return self.msk[index]
@@ -156,10 +159,10 @@ class _FeLWEMulti_MK:
 class _FeLWEMulti_SK:
     def __init__(self, y: List[Matrix], Zy: List[Matrix], z: int):
         """
-        Initialize FeDamgardMulti decryption key
+        Initialize FeLWEMulti decryption key
 
         :param y: Function vector
-        :param d: [y[i] * w for i in range(n)]
+        :param Zy: [y_i * Z_i for i in range(n)]
         :param z: <u, y>
         """
         self.y = y
@@ -200,13 +203,12 @@ class FeLWEMulti:
 
         :param n: Number of vector positions
         :param m: Dimension of the vector in each input
-        :param F: Group to use for the scheme. If set to None, a random 1024 bit prime group will be used
+        :param X_bit: bit bound on user's single weight
+        :param Y_bit: bit bound on y
+        :param N: N(lambda) matrix dimension.
         :return: FeDamgardMulti master key
         """
 
-        # K = (3*n*m) << (X_bit + Y_bit)
-
-       # p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
         p = getPrime(n.bit_length()+m.bit_length()+X_bit+Y_bit+2)
 
         if N is None:
@@ -216,7 +218,6 @@ class FeLWEMulti:
         res = math.sqrt(res)* res
         res = math.ceil(res)
         q = getPrime(res.bit_length())
-        # alpha = 1 / (K * K * (N * q.bit_length()) ** 7)
         M = (N + m + 1) * q.bit_length() + 2 * N + 1
 
         sigma = 1 / (2 * math.sqrt(M * N * 2 * m) * p * (1<<(Y_bit)))
@@ -234,30 +235,22 @@ class FeLWEMulti:
         pp = _FeLWEMulti_PP(M, N, X_bit, Y_bit, p, n, m ,q, B, sigma)
 
         msk = []
-        mpk = []
-
-        # sigma1 = math.sqrt(N * M.bit_length()) * max(math.sqrt(M), K)
-        # sigma2 = math.sqrt((N ** 7) * M * (M.bit_length() ** 5)) * max(M, K * K)
-
-        #print(pp)
+        csk = []
 
         sys_random = random.SystemRandom()
         
         for _ in range(n):
             u = Matrix([randbelow(p) for _ in range(m)])
-            #u = Matrix([0 for _ in range(m)])
             A = Matrix([[randbelow(q) for _ in range(N)] for _ in range(M)], dtype=object)
             s = Matrix([[randbelow(q) for _ in range(m)] for _ in range(N)], dtype=object)
             
-            E = Matrix([[round(sys_random.gauss(0, sigma)) for _ in range(m)] for _ in range(M)], dtype=object)# Matrix([[randbelow(q) for _ in range(N)] for _ in range(m)], dtype=object)
-            #E = Matrix([[0 for _ in range(m)] for _ in range(M)], dtype=object)
-
+            E = Matrix([[round(sys_random.gauss(0, sigma)) for _ in range(m)] for _ in range(M)], dtype=object)
             U = (A@s + E) % q
 
             msk.append(_FeLWEMulti_MSKi(s,u))
-            mpk.append(_FeLWEMulti_MPKi(U,A))    
+            csk.append(_FeLWEMulti_CSKi(U,A))    
 
-        return _FeLWEMulti_MK(pp, mpk, msk)
+        return _FeLWEMulti_MK(pp, csk, msk)
 
     @staticmethod
     def encrypt(x: List[int], key: _FeLWEMulti_EncK) -> _FeLWEMulti_C:
@@ -265,20 +258,15 @@ class FeLWEMulti:
         if len(x) != pp.m:
             raise Exception("Encrypt vector must be of length l")
 
-        # sys_random = random.SystemRandom()
         x = Matrix(x, dtype=object)
         r = Matrix([randbelow(2) for _ in range(pp.M)], dtype=object)
-        # e0 = Matrix([round(sys_random.gauss(0, pp.alpha * pp.q)) for _ in range(pp.M)], dtype=object)
-        # e1 = Matrix([round(sys_random.gauss(0, pp.alpha * pp.q)) for _ in range(pp.m)], dtype=object)
 
-        c0 = ((key.mpk.A.T @ r)) % pp.q
+        c0 = ((key.cski.A.T @ r)) % pp.q
 
-        ptx = pp.B * ((x + key.u %pp.p))  
+        ptx = pp.B * ((x + key.ui %pp.p))  
         ptx = Matrix([round(elem)  for elem in ptx]) # rounding
 
-        #ptx = Matrix([math.floor(elem) %  pp.q for elem in ptx]) # rounding
-
-        c1 = (key.mpk.U.T @ r) +  ptx % pp.q
+        c1 = (key.cski.U.T @ r) +  ptx % pp.q
         
         return _FeLWEMulti_C(c0, c1)
 
@@ -287,17 +275,6 @@ class FeLWEMulti:
 
         u = sum([((sk.y[i] @ c[i].c1) - (sk.Zy[i] @ c[i].c0)) % pp.q for i in range(pp.n)]) % pp.q
         u = (u - pp.B*sk.z) %pp.q
-
-        '''
-        q_half = math.floor(pp.q/2)
-        d= u
-        if d > q_half:
-            d= d- pp.q
-        d = d * pp.p
-        d = d + q_half
-        d = math.floor(d / pp.q)
-        return d
-        '''
 
         t = (u / pp.B)
         answer = (t - (-pp.p + 1) + 1)

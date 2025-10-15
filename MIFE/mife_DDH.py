@@ -82,10 +82,9 @@ class _FeDDHMulti_EncK:
     def __init__(self, pp: _FeDDHMulti_PP, cski: _FeDDHMulti_CSKi, ui: Matrix):
         """
         Initialize FeDDHMulti encryption key
-
-        :param g: Generator of the group
-        :param F: Group to use for the scheme
-        :param cski: Client's encryption key 
+        
+        :param pp: Public parameters
+        :param cski: Client's secret key 
         :param ui: A row of the original u matrix
         """
         self.pp = pp
