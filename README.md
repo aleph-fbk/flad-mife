@@ -145,6 +145,8 @@ The desired MIFE version can be chosen using the ```--protocol``` (or ```-p```) 
 
 Finally, if no scheme is chosen, ```LWE_sel``` will be used by default.
 
+Another option that the user can tune depending on the computational capabilities of his device is how many processes the encryption/decryption procedure runs in parallel. It can be selected using the ```--max_workers``` (or ```--W```) flag. 
+
 
 ## Acknowledgements
 
