@@ -80,71 +80,6 @@ def parallel_encrypt_vector_compact(v, max_workers, mife, key):
 
 
 
-def parallel_encrypt_vector(v, max_workers, mife, key):
-    def worker(shared_dict, f, chunk_size): # each worker encrypts a chunk of the weights
-        for i in range(chunk_size):
-            shared_dict[i] = f(shared_dict[i])
-
-    n_elem = len(v)
-    dicts = []
-
-    encrypt_with_key = partial(mife.encrypt, key=key)
-
-    chunk_size = n_elem//max_workers 
-    final_pos = (n_elem//max_workers)*max_workers
-    residual_size = n_elem%max_workers
-
-    #dicts = {i:Manager().dict()  for i in range(max_workers+1)} # we generate a dictionary for each worker
-    dicts = {i:Manager().list() for i in range(max_workers+1)}
-    # dicts = {i:{}  for i in range(max_workers+1)}
-
-    # for i in range(max_workers):
-    #     for j in range(chunk_size):
-    #         dicts[i][j] = v[i*chunk_size+j]
-
-    # for i in range(residual_size):
-    #     dicts[max_workers][i] = v[i+final_pos]
-
-    for i in range(max_workers):
-        for j in range(chunk_size):
-            dicts[i].append(v[i*chunk_size+j])
-
-    for i in range(residual_size):
-        dicts[max_workers].append(v[i+final_pos])
-    
-
-
-    processes = []
-    for i in range(max_workers):
-        p = Process(target=worker, args=(dicts[i], encrypt_with_key, chunk_size))
-        p.start()
-        processes.append(p)
-
-    p = Process(target=worker, args=(dicts[max_workers], encrypt_with_key, residual_size))
-    p.start()
-    processes.append(p)
-
-    for p in processes:
-        p.join()
-        p.close()    
-
-    return dicts
-    
-
-def decrypt_vector(v, mife, pp, sk):
-    number_of_clients = len(v)
-    number_of_dicts = len(v[0])
-    number_of_weight = 0
-    aggregated_list = []
-
-    for dict_pos in range(number_of_dicts):
-        dict_size = len(v[0][dict_pos])
-        number_of_weight += dict_size
-        aggregated_list.extend([mife.decrypt(pp=pp, c=[v[cl][dict_pos][i] for cl in range(number_of_clients)], sk=sk) for i in range(dict_size)])
-
-    return aggregated_list
-
-
 def parallel_decrypt_vector_compact(v,mife,pp,sk,max_workers):
 
     chunks = split_list_decrypt(v, max_workers)
@@ -154,40 +89,4 @@ def parallel_decrypt_vector_compact(v,mife,pp,sk,max_workers):
         results = pool.map(process_chunk_with_fun, chunks)
 
     return [item for sublist in results for item in sublist]
-    
-
-def parallel_decrypt_vector(v,mife,pp,sk,max_workers):
-    
-    def worker(shared_dict, f, chunk_size):
-        num_dicts = len(shared_dict)
-        for i in range(chunk_size):
-            shared_dict[0][i] = f([shared_dict[j][i] for j in range(num_dicts)])
-
-    number_of_clients = len(v)
-    number_of_weight = 0
-    aggregated_list = []
-
-    decrypt = partial(mife.decrypt, pp=pp, sk=sk)
-
-    processes = []
-    for dict_pos in range(max_workers + 1):
-        dict_size = len(v[0][dict_pos])
-        number_of_weight += dict_size
-
-        p = Process(target=worker, args=([v[cl][dict_pos] for cl in range(number_of_clients)], decrypt, dict_size))
-        # p.daemon = True
-        p.start()
-        processes.append(p)
-        # aggregated_weights_list.extend([mife.decrypt(pp=server['pp'], c=[encrypted_model_set[i][dict_pos][j] for i in range(number_of_clients)], sk=server['sky']) for j in range(dict_size)])
-    
-    for p in processes:
-        p.join()
-        p.kill()
-
-    for dict_pos in range(max_workers + 1):
-        dict_size = len(v[0][dict_pos])
-        aggregated_list.extend([v[0][dict_pos][j] for j in range(dict_size)])
-    
-    return aggregated_list
-    
     
