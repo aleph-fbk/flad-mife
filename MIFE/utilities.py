@@ -57,11 +57,6 @@ def set_flat_weights(model, flat_weights):
     # Set the weights back in the model
     model.set_weights(new_weights)
 
-
-def encrypt_vector(v, mife, key):
-    return [mife.encrypt(v[i], key=key) for i in range(len(v))]
-
-
 def process_chunk(chunk, f): # each worker process a chunk of the weights
         return [f(x) for x in chunk]
 
