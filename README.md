@@ -1,13 +1,11 @@
 # FLAD: Adaptive Federated Learning for DDoS Attack Detection
 
-FLAD (a Federated Learning approach to DDoS Attack Detection) is an adaptive Federated Learning (FL) approach for training feed-forward neural networks, that implements a mechanism to monitor the classiﬁcation accuracy of the global model on the clients’ validations sets, without requiring any exchange of data. Thanks to this mechanism, FLAD can estimate the performance of the aggregated model and dynamically tune the FL process by assigning more computation to those clients whose attacks proﬁles are harder to learn.
+FLAD (a Federated Learning approach to DDoS Attack Detection) is an adaptive Federated Learning (FL) approach, specifically aimed to DDoS attack detection. 
+More details on the architecture of FLAD and its performance in terms of detection accuracy and execution time are available in the [original paper](https://www.sciencedirect.com/science/article/abs/pii/S0167404823005072). 
 
-More details on the architecture of FLAD and its performance in terms of detection accuracy and execution time are available in the following research paper:
+The cryptographic layer of security against reconstruction attacks on the FLAD model is based on a Multi Input Functional Encryption for Inner Product (shortly, MIFE) scheme and offers 4 different versions, based on different hardness assumptions and security paradigms. Details, benchmarks and considerations about the scheme and its versions are available in the following paper:
 
-Roberto Doriguzzi-Corin, Domenico Siracusa, "FLAD: Adaptive Federated Learning for DDoS attack detection", in Computers & Security,
-Volume 137, 2024, doi: 10.1016/j.cose.2023.103597
-
-The code with all the experiments presented in the paper is available in branch [*flad-paper-evaluation*](https://github.com/doriguzzi/flad-federated-learning-ddos/tree/flad-paper-evaluation).
+Enrico Sorbera, Federica Zanetti, Giacomo Brandi, Alessandro Tomasi, Roberto Doriguzzi-Corin, Silvio Ranise, "Adaptive Federated Learning with Functional Encryption: A Comparison of Classical and Quantum-safe Options", doi: 10.48550/arXiv.2504.00563, [link](https://arxiv.org/abs/2504.00563).
 
 
 ## Installation
@@ -150,9 +148,13 @@ Another option that the user can tune depending on the computational capabilitie
 
 ## Acknowledgements
 
-If you are using FLAD's or MIFE's code for scientific research, please cite the related paper in your manuscript as follows:
+If you are using FLAD's code for scientific research, please cite the related paper in your manuscript as follows:
 
-Sorbera, E., Zanetti, F., Brandi, G., Tomasi, A., Doriguzzi-Corin, R., & Ranise, S. (2025). Adaptive Federated Learning with Functional Encryption: A Comparison of Classical and Quantum-safe Options. arXiv preprint arXiv:2504.00563.
+Roberto Doriguzzi-Corin, Domenico Siracusa, "FLAD: Adaptive Federated Learning for DDoS attack detection", in Computers & Security,
+Volume 137, 2024, doi: 10.1016/j.cose.2023.103597
+
+The code with all the experiments presented in the paper is available in branch [*flad-paper-evaluation*](https://github.com/doriguzzi/flad-federated-learning-ddos/tree/flad-paper-evaluation).
+
 
 This work was supported by Ministero delle Imprese e del Made in Italy (IPCEI Cloud DM 27 giugno 2022 – IPCEI-CL-0000007) and European Union (Next Generation EU).
 
