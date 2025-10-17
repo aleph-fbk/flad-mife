@@ -156,6 +156,7 @@ Sorbera, E., Zanetti, F., Brandi, G., Tomasi, A., Doriguzzi-Corin, R., & Ranise,
 
 This work was supported by Ministero delle Imprese e del Made in Italy (IPCEI Cloud DM 27 giugno 2022 – IPCEI-CL-0000007) and European Union (Next Generation EU).
 
+This project makes use of code from the [PyMIFE](https://github.com/MechFroG88/PyMIFE) repository, created by [@MechFroG88](https://github.com/MechFroG88).
 ## License
 
 The code is released under the Apache License, Version 2.0.
