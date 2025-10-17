@@ -5,7 +5,7 @@ More details on the architecture of FLAD and its performance in terms of detecti
 
 The cryptographic layer of security against reconstruction attacks on the FLAD model is based on a Multi Input Functional Encryption for Inner Product (shortly, MIFE) scheme and offers 4 different versions, based on different hardness assumptions and security paradigms. Details, benchmarks and considerations about the scheme and its versions are available in the following paper:
 
-Enrico Sorbera, Federica Zanetti, Giacomo Brandi, Alessandro Tomasi, Roberto Doriguzzi-Corin, Silvio Ranise, "Adaptive Federated Learning with Functional Encryption: A Comparison of Classical and Quantum-safe Options", doi: 10.48550/arXiv.2504.00563, [link](https://arxiv.org/abs/2504.00563).
+Enrico Sorbera, Federica Zanetti, Giacomo Brandi, Alessandro Tomasi, Roberto Doriguzzi-Corin, Silvio Ranise, "Adaptive Federated Learning with Functional Encryption: A Comparison of Classical and Quantum-safe Options", doi: [10.48550/arXiv.2504.00563](https://arxiv.org/abs/2504.00563).
 
 
 ## Installation
